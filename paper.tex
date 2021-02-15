@@ -1,0 +1,139 @@
+%===========[ PREAMBLE ]========================================================
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[a4paper, top=0.98in, bottom=0.79in, left=0.98in, right=0.98in]{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[labelsep=period]{caption}
+\usepackage{mwe}
+\usepackage{xfrac}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+%\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
+%\addbibresource{/path/to/bib/file/example.bib} %Change path to your own .bib file
+
+
+% ==========[ FONT ]============================================================
+%For the font of the document uncoment one of the following options.
+%If using pdflatex compiler the follwoing commands will provide an arial-like
+%font (helvetica)
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+%If using xelatex compiler the follwoing commands will provide arial font
+%\usepackage{fontspec}
+%\setmainfont{Arial}
+
+%===========[ FORMAT ]==========================================================
+%Please do not edit or remove these lines
+\pagenumbering{gobble}
+\setlength{\parskip}{6pt}
+\setlist[1]{topsep=0pt,itemsep=-5pt}
+\addto\captionsenglish{\renewcommand{\figurename}{Figure}}
+\addto\captionsenglish{\renewcommand{\tablename}{Table}}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\titlespacing*{\subsection}{0pt}{0ex}{0pt}
+\titlespacing*{\subsubsection}{0pt}{0pt}{0pt}
+\titlespacing*{\paragraph}{0pt}{6pt}{6pt}
+\captionsetup{belowskip=0pt,skip=6pt,labelfont=bf}%justification=raggedright,singlelinecheck=false
+\makeatletter
+\renewcommand{\maketitle}{
+    \begin{flushleft}
+        \footnotesize{Placeholder Name of the conference}\\\medskip
+        \footnotesize{Placeholder Session title}\\\medskip
+        \footnotesize{https://doi.or/10........ DOI placeholder (WILL BE FILLED IN BY TIB Open Publishing)}\\\medskip
+        \footnotesize{\textcopyright\ Authors. This work is licensed under a \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License}}\\\medskip
+        \footnotesize{Published: (WILL BE FILLED IN BY TIB Open Publishing)}\\
+    \end{flushleft}
+    \begin{center}
+        \LARGE\textbf{\contribtitle}\\\smallskip
+        \Large{\contribsubtitle}
+    \end{center}
+    \normalsize{\firstauthor, \secondauthor, and \thirdauthor}
+    \begin{center}
+        \textsuperscript{1}\footnotesize{\firstauthoruniv}\\\medskip
+        \textsuperscript{2}\footnotesize{\secondauthoruniv}\\\medskip
+        \textsuperscript{3}\footnotesize{\thirdauthoruniv}\\\medskip
+    \end{center}}
+\makeatother
+
+%===========[ TITLES ]==========================================================
+%Chnage to your own information
+\newcommand{\contribtitle}{Contribution title}
+\newcommand{\contribsubtitle}{Subtitle}
+\newcommand{\firstauthor}{First Author\textsuperscript{1[https://orcid.org/0000-1111-2222-3333]}}
+\newcommand{\firstauthoruniv}{University College London, UK}
+\newcommand{\secondauthor}{Second Author\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}}
+\newcommand{\secondauthoruniv}{TIB Open Publishing, Germany}
+\newcommand{\thirdauthor}{Third Author\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}
+\newcommand{\thirdauthoruniv}{Technische Hochschule Wildau, Germany}
+
+%===========[ CONTENT ]=========================================================
+\begin{document}
+\maketitle
+
+\paragraph{Abstract.} The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.
+\paragraph{Keywords:} First keyword, second, third keyword
+
+\section*{First Section}
+\subsection*{Subsection} Please notice that there is no indent in the first paragraph of a section or subsection. There is also no indent in the first paragraphs which follow a table, figure, equation, etc. \par
+
+Nevertheless, following paragraphs are indented.
+
+\subsubsection*{Three levels of headlines may be used} Please only use the formatting styles predefined in this file. Use the “Standard” formatting for the text.
+
+\begin{table}[h!]
+    \centering
+    \caption{Table captions should be placed above the tables.}\label{tab:<table-name>}
+    \begin{tabularx}{\linewidth}{|X|X|}
+        \hline
+        \textbf{Hazard Class}    & \textbf{A 1 to A III}                            \\ \hline
+        Flash point              & $< 21 ^\circ C / > 55 ^\circ C$                  \\ \hline
+        Density at $15 ^\circ C$ & $720\ \sfrac{kg}{m^3}$ to $860\ \sfrac{kg}{m^3}$ \\ \hline
+        Kinematic Viscosity      & $0,65$ to $4,0\cdot 10–6\ \sfrac{m^2}{s}$        \\ \hline
+    \end{tabularx}
+\end{table}
+
+\noindent Tables and Figures should be centered.
+
+\begin{itemize}
+    \item Bullet points may be used
+    \item ...
+\end{itemize}
+
+\begin{enumerate}[align=left, labelwidth=1ex]
+    \item Numbering may be used, too.
+    \item ...
+\end{enumerate}
+
+\noindent Equations should be centered and set on a separate line.
+\begin{equation}
+    x+y=z
+\end{equation}
+
+\noindent Whenever possible, use vector graphics and try to avoid rasterized images.
+\clearpage
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{example-image}
+    \caption{A figure caption is always placed below the illustration.}\label{fig:<figure-name>}
+\end{figure}
+\vspace{-3pt}
+\noindent For citations of references, we prefer the use of square brackets and consecutive numbers, e.g. as shown by Author et al. [2], [3, pp. 5–10], as mentioned earlier [1], [3], [9]. The following bibliography provides the basic formats as a reference list with entries for journal articles [1], book chapter [2], as well as a URL [5]. For further guidance please refer to the \href{https://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf}{IEEE-Reference-Guide}.
+
+\section*{References}
+
+\begin{enumerate}
+    \item J. K. Author, “Name of paper,” Abbrev. Title of Journal , vol.x, no.x, pp. xxx–xxx, Abbrev. month, year, doi: https.doi.org/……
+    \item J. K. Author, “Title of chapter in the book,” in Title of Their Published Book, xth ed. City of Publisher, (only U.S. State), Country: Abbrev. of Publisher, year, ch. x, sec. x, pp. xxx–xxx.
+    \item First Name Initial(s) Last Name. “Page Title.” Website Title. Web Address (retrieved Date Accessed)
+\end{enumerate}
+
+%\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
+
+\noindent NOTE: You can create your technical contribution directly in this template. Make a copy of it beforehand for safety. This template was compiled using the pdflatex compiler. Using another compiler might result in a different format. For a more optimal bibliography management, consider using tools such as \href{https://www.overleaf.com/learn/latex/bibliography_management_with_bibtex}{BibTeX} or \href{https://www.overleaf.com/learn/latex/bibliography_management_with_biblatex}{Biblatex}.
+\end{document}
