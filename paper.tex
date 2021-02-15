@@ -9,10 +9,12 @@
 \usepackage{setspace}
 \usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{csquotes}
 \usepackage[labelsep=period]{caption}
 \usepackage{mwe}
 \usepackage{xfrac}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{cleveref}
 %\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
 %\addbibresource{/path/to/bib/file/example.bib} %Change path to your own .bib file
 
@@ -62,28 +64,68 @@
 
 %===========[ TITLES ]==========================================================
 %Chnage to your own information
-\newcommand{\contribtitle}{Contribution title}
-\newcommand{\contribsubtitle}{Subtitle}
-\newcommand{\firstauthor}{First Author\textsuperscript{1[https://orcid.org/0000-1111-2222-3333]}}
-\newcommand{\firstauthoruniv}{University College London, UK}
+%\newcommand{\contribtitle}{FAIR Knowledge Graphs for the Management of Health Information Systems}
+\newcommand{\contribtitle}{SNIK Graph}
+\newcommand{\contribsubtitle}{Graph-Based RDF Exploration}
+%\newcommand{\contribsubtitle}{Graph-Based Exploration of an Hospital Information Systems}
+\newcommand{\firstauthor}{Konrad Höffner\textsuperscript{1[https://orcid.org/0000-0001-7358-3217]}}
+\newcommand{\firstauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 \newcommand{\secondauthor}{Second Author\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}}
-\newcommand{\secondauthoruniv}{TIB Open Publishing, Germany}
+\newcommand{\secondauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 \newcommand{\thirdauthor}{Third Author\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}
-\newcommand{\thirdauthoruniv}{Technische Hochschule Wildau, Germany}
+\newcommand{\thirdauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 
 %===========[ CONTENT ]=========================================================
 \begin{document}
 \maketitle
 
-\paragraph{Abstract.} The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.
-\paragraph{Keywords:} First keyword, second, third keyword
+\paragraph{Abstract.}% The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.
 
-\section*{First Section}
-\subsection*{Subsection} Please notice that there is no indent in the first paragraph of a section or subsection. There is also no indent in the first paragraphs which follow a table, figure, equation, etc. \par
+\paragraph{Keywords:} Linked open data, health information systems, information management
 
-Nevertheless, following paragraphs are indented.
+\section*{Introduction}%
+SNIK Graph is a web application\footnote{\url{http://www.snik.eu/graph}} that visualizes RDF resources as nodes and triples as edges of a graph.
+The graph is visualized using the Cytoscape.js~\cite{cytoscape} library with the force-directed Euler layout. %, see%~\cref{fig:snik-graph-overview}.
+With several thousand classes, specific parts of SNIK can be hard to discern.
+Thus, there are several options to view subgraphs of SNIK, for example to show only a specific chapter of a book to prepare a lecture about a specific topic.
+Users can also search for and restrict the view to a single class and then show the neighbourhood of that class %(see \cref{fig:snik-graph-circle-star})
+ and subsequently the neighbourhood of selected neighbours of the previous step.
+SNIK Graph can also calculate the shortest path to between classes.
+Path and neighourhood operations are joined in the \enquote{spider worm}
+%(see \cref{fig:snik-graph-spiderworm})
+, which consists of the shortest path between a start node and an end node together with the end node’s neighbourhood, illustrate the context of a concept.
+
+
+\subsection*{Motivation}%
+- best presentation form depends on 
+-
 
 \subsubsection*{Three levels of headlines may be used} Please only use the formatting styles predefined in this file. Use the “Standard” formatting for the text.
+
+\section*{Future Work}
+\subsection*{Performance}
+%On graphs of several thousand nodes, 
+The performance of SNIK Graph suffers in two key areas:
+
+%(1) Performing a force directed 
+\subsubsection*{Force-Directed Layouts}
+As CPUs with 6 to 16 cores become the norm, the speed penalty of single-threaded code becomes enormous.
+Thus, the single-thread paradigm of JavaScript seriously hinders performance of CPU-bound applications like SNIK Graph.
+While web workers\footnote{\url{https://html.spec.whatwg.org/multipage/workers.html\#workers}} offer multithreading for JavaScript applications, they posess separate memory and cause large overheads for serialization and deserialization and are thus not suited for short-lived tasks like calculating a single step of a force-directed layout for parts of a given graph.
+Thus, a light-weight parallellization option is needed.
+The WebAssembly \enquote{threads}-proposal\footnote{\url{https://github.com/WebAssembly/proposals/issues/14}} provides such a construct, however it is only at phase 2 \enquote{Proposed Spec Text Available}, which need to be followed by the implementation and the standardization phase.
+The main developer of the Cytoscape.js library showed interest in rewriting a future version of the library in WebAssembly.
+
+\subsubsection*{Graph Rendering}
+Due to the low performance of rendering on an HTML canvas, the frame rate drops significantly below a fluent 60 frames per second.
+The frame rate is especially low on large resoultions such as 4k (3840x2160) and on browsers other than Google Chrome (see table ...), where it can get as low as 2 FPS.
+%Another ... incredible power of modern GPUs.
+
+\subsubsection*{Most Interesting Path}
+- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
+(link to AB bachelor thesis if allowed)
+
+
 
 \begin{table}[h!]
     \centering
@@ -127,13 +169,8 @@ Nevertheless, following paragraphs are indented.
 
 \section*{References}
 
-\begin{enumerate}
-    \item J. K. Author, “Name of paper,” Abbrev. Title of Journal , vol.x, no.x, pp. xxx–xxx, Abbrev. month, year, doi: https.doi.org/……
-    \item J. K. Author, “Title of chapter in the book,” in Title of Their Published Book, xth ed. City of Publisher, (only U.S. State), Country: Abbrev. of Publisher, year, ch. x, sec. x, pp. xxx–xxx.
-    \item First Name Initial(s) Last Name. “Page Title.” Website Title. Web Address (retrieved Date Accessed)
-\end{enumerate}
-
 %\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
+\bibliographystyle{plain}
+\bibliography{paper,snik}
 
-\noindent NOTE: You can create your technical contribution directly in this template. Make a copy of it beforehand for safety. This template was compiled using the pdflatex compiler. Using another compiler might result in a different format. For a more optimal bibliography management, consider using tools such as \href{https://www.overleaf.com/learn/latex/bibliography_management_with_bibtex}{BibTeX} or \href{https://www.overleaf.com/learn/latex/bibliography_management_with_biblatex}{Biblatex}.
 \end{document}
