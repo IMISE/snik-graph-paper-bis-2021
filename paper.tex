@@ -9,6 +9,7 @@
 \usepackage{setspace}
 \usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{todonotes}
 \usepackage{csquotes}
 \usepackage[labelsep=period]{caption}
 \usepackage{mwe}
@@ -70,7 +71,7 @@
 %\newcommand{\contribsubtitle}{Graph-Based Exploration of an Hospital Information Systems}
 \newcommand{\firstauthor}{Konrad Höffner\textsuperscript{1[https://orcid.org/0000-0001-7358-3217]}}
 \newcommand{\firstauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-\newcommand{\secondauthor}{Second Author\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}}
+\newcommand{\secondauthor}{Thomas Pause\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}\todo{Thomas: deine orcid ggnf. erstellen und hier eintragen }}
 \newcommand{\secondauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 \newcommand{\thirdauthor}{Third Author\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}
 \newcommand{\thirdauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
@@ -97,10 +98,49 @@ Path and neighourhood operations are joined in the \enquote{spider worm}
 
 
 \subsection*{Motivation}%
-- best presentation form depends on 
--
+%A large amount of relevant knowledge is freely available as Linked Open Data.
+%This structured approach is well suited for consumption by machines but basic access mechanisms like the text-based RDF serializations and SPARQL queries are not well suited for humans for large knowledge bases, especially for non-expert users.
+While the Semantic Web field has been providing a wealth of knowledge and is increasingly adopted by mainstream industries, not all use cases are yet supported by easy-to-use tools~\cite{semanticwebfield}.
+One such use case is graph-based exploration, where RDF data is displayed as a directed graph, with the resources as nodes and the triples as edges.
+As existing approaches \iffalse(see \cref{sec:relatedwork})\fi do not satisfy the needs of the students and researchers for exploring Hospital Information Management as Linked Open Data in the SNIK ontology~\cite{sniktec}, we implement \emph{SNIK Graph} as an easy-to-use graph-based web application, which we present in the following.
+%To minimize duplicated 
+%One such area is exploration, where users intuitively 
+%Easy-to-use and freely available tools exist for 
+%However, there is a lack of easy-to-use tools along the whole lifecycle of data~\cite{semanticwebfield}.
+% - software is hard to publish
+%The SNIK ontology~\cite{sniktec} contains knowledge about the management of hospital information systems.
+%The SNIK ontology models a typical hospital information system as a complex structure of roles (who), functions (does what) and entity types (information needed).
 
-\subsubsection*{Three levels of headlines may be used} Please only use the formatting styles predefined in this file. Use the “Standard” formatting for the text.
+\subsection*{Design Goals}
+SNIK Graph's original main goal is to present knowledge extracted from text books to users that may not have any Semantic Web experience.
+The time and cognitive load of the users required to install and operate the application should be as low as possible, so that they can focus on the data at hand and experience a benefit compared to only reading the textbook, such as when studying for an exam.
+As such, SNIK Graph is designed as a a web application, so that it is operating system agnostic and does not need to be installed. 
+
+When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
+When visualizing ontologies, edges between class nodes need to represent domain-range pairs and OWL restrictions.
+
+Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
+
+
+
+
+\label{sec:relatedwork}
+\section*{Related Work}
+%In the course of the SNIK project
+\todo{thomas: bitte hier den teil aus deiner ba einfügen uns ausbauen, an dem du die anderen graph-based visualization tools vorstellst. besonders wichtig ist hier, wie die sich von snik graph abgrenzen und was snik graph kann was die nicht können, sonst haben wir ja keine daseinsberechtigung. die referenzen müssen natürlich auch hier in die bib. die tools alle mal ausprobieren und gucken, ob die auch mit snik funktionieren oder ob das dann abstürzt weil es zu groß ist.}
+
+% booktabs not allowed for this conference AFAIK
+\begin{table}[h!]
+    \centering
+    \caption{Alternative Graph-based visualization tools.}
+	\label{tab:relatedwork}
+    \begin{tabularx}{\linewidth}{|X|X|X|X|X|X|}
+        \hline
+        \textbf{Tool}			& \textbf{Free} & \textbf{Plattform}	&\textbf{More}	&\textbf{Ontology}	&\textbf{Scales} \\ \hline
+        IsaViz					& ?				& Java					& no			&?					&?\\ \hline
+    \end{tabularx}
+\end{table}
+
 
 \section*{Future Work}
 \subsection*{Performance}
@@ -121,10 +161,12 @@ Due to the low performance of rendering on an HTML canvas, the frame rate drops 
 The frame rate is especially low on large resoultions such as 4k (3840x2160) and on browsers other than Google Chrome (see table ...), where it can get as low as 2 FPS.
 %Another ... incredible power of modern GPUs.
 
+%\subsection*{Mobile Devices}
+
 \subsubsection*{Most Interesting Path}
 - We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
 (link to AB bachelor thesis if allowed)
-
+-  wisp?
 
 
 \begin{table}[h!]
@@ -155,9 +197,6 @@ The frame rate is especially low on large resoultions such as 4k (3840x2160) and
 \begin{equation}
     x+y=z
 \end{equation}
-
-\noindent Whenever possible, use vector graphics and try to avoid rasterized images.
-\clearpage
 
 \begin{figure}[h!]
     \centering
