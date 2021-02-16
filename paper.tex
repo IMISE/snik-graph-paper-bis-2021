@@ -122,8 +122,11 @@ When visualizing ontologies, edges between class nodes need to represent domain-
 Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
 
 
+\section{Implementation}
+Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js\cite{cytoscape}.
+%Data is loaded from the given SPARQL endpoint using fetch commands.
 
-
+% version 3.18.0
 \label{sec:relatedwork}
 \section*{Related Work}
 %In the course of the SNIK project
@@ -136,11 +139,18 @@ Users should see the structure of the whole graph at once, but also be able to s
 	\label{tab:relatedwork}
     \begin{tabularx}{\linewidth}{|X|X|X|X|X|X|}
         \hline
-        \textbf{Tool}			& \textbf{Free} & \textbf{Plattform}	&\textbf{More}	&\textbf{Ontology}	&\textbf{Scales} \\ \hline
-        IsaViz					& ?				& Java					& no			&?					&?\\ \hline
+        \textbf{Tool}			& \textbf{Free} & \textbf{Plattform}	&\textbf{demo link}	&\textbf{Ontology}	&\textbf{Scales} \\ \hline
+        IsaViz					& ?				& Java					& ?			&?					&?\\ \hline
+        OSMoSys					& ?				& Web					& dead			&?					&?\\ \hline
+        LODeX					& ?				& Web					& dead			&?					&?\\ \hline
     \end{tabularx}
 \end{table}
 
+\todo{thomas: bitte tabelle vervollständigen}
+
+OSMoSys is also a web application and handles large graphs using a level-of-detail system.
+% demo link given in paper at http://www.hyperbody.nl/demo/osmosys only shows a video, author is asked for demo, repo, free and open source via email by KH
+% based on sigma.js
 
 \section*{Future Work}
 \subsection*{Performance}
