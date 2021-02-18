@@ -11,12 +11,16 @@
 \usepackage{enumitem}
 \usepackage{todonotes}
 \usepackage{csquotes}
+\usepackage{siunitx}
 \usepackage[labelsep=period]{caption}
 \usepackage{mwe}
 \usepackage{xfrac}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \usepackage{cleveref}
 \usepackage{aurl}
+\daurl{bb}{http://www.snik.eu/ontology/bb/}
+\daurl{ob}{http://www.snik.eu/ontology/bb/}
+\daurl{meta}{http://www.snik.eu/ontology/meta/}
 \graphicspath{{./img/}}
 %\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
 %\addbibresource{/path/to/bib/file/example.bib} %Change path to your own .bib file
@@ -75,7 +79,7 @@
 \newcommand{\firstauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 \newcommand{\secondauthor}{Thomas Pause\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}\todo{Thomas: deine orcid ggnf. erstellen und hier eintragen }}
 \newcommand{\secondauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-\newcommand{\thirdauthor}{Third Author\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}
+\newcommand{\thirdauthor}{Franziska Jahn\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}%\todo{fj: orcid bitte anpassen}
 \newcommand{\thirdauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 
 %===========[ CONTENT ]=========================================================
@@ -172,7 +176,7 @@ Thus the maximum graph size and performance cannot be determined.
 % demo link given in paper at http://www.hyperbody.nl/demo/osmosys only shows a video, author is asked for demo, repo, free and open source via email by KH
 % based on sigma.js
 
-\section{Meta Model}
+\section*{Meta Model}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{metamodel9s.pdf}
@@ -180,7 +184,7 @@ Thus the maximum graph size and performance cannot be determined.
 \end{figure}
 
 
-\section{Features}
+\section*{Features}
 As SNIK consists of more than 4000 classes, viewing large parts of it at once does not convey much information, see \cref{fig:much}.
 To alleviate this, SNIK offers multiple exploration methods described in the following.
 \begin{figure}[h!]
@@ -189,17 +193,35 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
     \caption{Excerpt of SNIK using the default force directed layout.}\label{fig:much}
 \end{figure}
 
-\subsection{Search}
-The search index is populated from the target SPARQL endpoint and is implemented using the Fuse.js library, which is a light-weight, purely client side alternative to backend-driven indexes like Lucene, and which uses the Baeza-Yates--Gonnet algorithm.
+\subsection*{Search}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{search.png}
+    \caption{Visual search results for \enquote{Chief Information Officer} in SNIK Graph. Automatically generated interlinks that are not yet manually validated are shown with an exclamation mark.}\label{fig:search}
+\end{figure}
 
-Search results presented to the user are color coded in three categories: visible (green), invisible (yellow) and not loaded (red)%
+The search index is populated from the target SPARQL endpoint and is implemented using the Fuse.js library that is based on the Baeza-Yates--Gonnet algorithm~\cite{textsearching}.
+Fuse.js\footnotemark{} is a light-weight, purely client side JavaScript library and presents an alternative to backend-driven indexes like Lucene.%
+\footnotetext{\url{https://fusejs.io/}, \url{https://github.com/krisk/Fuse}}
+This enables fast fuzzy search on any dataset loaded via SPARQL endpoint but requires waiting for index initialization on the first search of each user session.
+Search results presented to the user are color coded in three categories: visible (green), invisible (yellow)%
+\footnote{The resource is either \emph{filtered} or \emph{hidden}.}% \cref{sec:visibility}
+ and not loaded (red)%
 \footnote{The resource is included in the search index built from the SPARQL endpoint but either deleted in the graph or not loaded in the first place, such as due to configuration.}.
-\subsection{Compound Layout}
+Each search entry of a class contains the label values of \aurl{rdfs}{label} (long form) and \aurl{skos}{altLabel} (short and alternative forms) with a weight of 0.7.
+Textbook definitions are included with a weight of 0.3.
+Labels of resources connected via \aurl{skos}{closeMatch} interlinks in either direction are included as well, because those resources are defined as semantically close, so we assume their labels are synonyms.
+Fuzzy matching is enabled with a threshold of \num{0.25}.
+The resource \aurl{bb}{ChiefInformationOfficer} can thus be found by entering either \enquote{CIO} (alternative label), \enquote{vice president} (part of the definition) or \enquote{Leiter des Rechenzentrums} (German alternative label of \aurl{ob}{ChiefInformationOfficer}).
+Search results can then be selected in the graph, see~\cref{fig:search}, which allows chaining the path and neighbourhood operations described in their respective sections.%cannot cref because of unnumbered section star commands
+
+\subsection*{Compound Layout}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{combine.pdf}
-    \caption{Grouping of equivalent concepts from different sources (color coded) using the \enquote{combine matches} option.}\label{fig:combine}
+    \caption{Grouping of equivalent concepts from different sources in SNIK Graph (color coded).}% using the \enquote{combine matches} option.}
+	\label{fig:combine}
 \end{figure}
 \vspace{-3pt}
 %\noindent For citations of references, we prefer the use of square brackets and consecutive numbers, e.g. as shown by Author et al. [2], [3, pp. 5–10], as mentioned earlier [1], [3], [9]. The following bibliography provides the basic formats as a reference list with entries for journal articles [1], book chapter [2], as well as a URL [5]. For further guidance please refer to the \href{https://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf}{IEEE-Reference-Guide}.
@@ -211,15 +233,61 @@ To emphasize the difference in perspective, even if the name is an exact match, 
 \todo{Franziska or Birgit: you you have a good example from the blue book and orange book? "information managment" or something similar?}
 Users can group interlinked nodes together and either display them side by side or on top of each other, see \cref{fig:combine}.
 
-\subsection{Circle Star}
+\subsection*{Shortest Paths}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{path.png}
+    \caption{The shortest non-trivial path between \aurl{bb}{PatientIdentificationNumber} and \aurl{bb}{QualityOfData} in SNIK Graph.}
+	\label{fig:path}
+\end{figure}
+\vspace{-3pt}
+The shortest path is the most basic method of visualizing the relationship between two resources, see \cref{fig:path}.
+We treat SNIK as an undirected graph for the calculation because the direction is often arbitrary.
+Roles can be nested using \aurl{meta}{roleComponent} (\emph{has part}), which could have just as well been modelled as a \emph{part of} relation with reversed subject and object.
+Another reason is that a set of resources that forms a graph connected by some symmetric property implies a complete subgraph, which negatively effects speed, memory and visibility of SNIK Graph.
+For this reason, \aurl{skos}{closeMatch} and other symmetrical properties are often only sparsely modelled, and the other triples are implied.
+As SPARQL endpoints, such as Virtuoso SPARQL employed by SNIK, do not perform reasoning to infer such implied triples such as those generated by symmetric properties, this would prevent the shortest path from including resources where only the opposite direction is explicitly modelled.%
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{hierarchy.pdf}
+    \caption{Excerpt of the SNIK class hierarchy. Source: \cite{snikposter}.}
+	\label{fig:hierarchy}
+\end{figure}
+\vspace{-3pt}
+We also don't explicitly store triples inferred by transitive properties such as \aurl{rdfs}{subClassOf}, which prevents paths involving such properties from being squashed, such as the path between \emph{Project Manager} and \emph{HIS Stakeholder} in \cref{fig:hierarchy}.
 
-\section{Discussion}
+
+%We ignore the direction of edges because, that is, which resource is the subject and the object 
+The largest problem of shortest paths is however, that they are not necessarily informative to the user. 
+For example, any two roles, such as \aurl{bb}{ChiefInformationOfficer} and \aurl{bb}{ChiefExecutiveOfficer}, are connected by a path of length 2 as they are all subclasses of \aurl{meta}{Role}, which the user already knows given the triangular shapes representing roles in SNIK Graph.
+To exclude such trivial paths,  the meta model is not shown by default.
+Furthermore, filtering, such as by knowledge source or type of relation or resource, allows further tuning of the resources that are shown and eliglible for paths.
+%Further research into informative paths has been done in two bachelor theses~\cite{}.
+An general approach to solve the problem of informative shortest paths is \emph{weighted shortest paths for RDF graphs (WiSP)}~\cite{wisp}.
+Future work includes adopting this approach to SNIK Graph and evaluating it with its users.
+Another approach is to show all short paths under a given length and let the user remove unwanted ones manually, as employed by \emph{Relfinder}~\cite{relfinder}.
+% Research into most interesting short paths between objects relfinder, wisp, anna brakemeier, anatoli zeiser
+
+\subsection*{Neighbourhood Operations}
+
+\subsection*{Mixed Operations}
+\subsubsection*{Spiderworm}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{spiderworm.pdf}
+    \caption{\emph{Spiderworm} between \aurl{bb}{PatientIdentificationNumber} and \aurl{bb}{QualityOfData} in SNIK Graph.}
+	\label{fig:path}
+\end{figure}
+\vspace{-3pt}
+\subsection*{Circle Star}
+
+\section*{Discussion}
 % A problem is that related approaches are not available as open source ...
 % this hinders analysis and slows progress, as effort is not shared and ...
-\section{Evaluation}
+\section*{Evaluation}
 SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
 
-\section{Discussion}
+\section*{Discussion}
 Different presentation forms are suitable for different use cases and data sets.
 % RDF browsers are well suited for ...
 
@@ -244,10 +312,8 @@ The frame rate is especially low on large resoultions such as 4k (3840x2160) and
 
 %\subsection*{Mobile Devices}
 
-\subsubsection*{Most Interesting Path}
-- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
-(link to AB bachelor thesis if allowed)
-weighted shortest paths for RDF graphs (WiSP)~\cite{wisp}
+%- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
+%(link to AB bachelor thesis if allowed)
 
 
 \begin{table}[h!]
