@@ -11,6 +11,8 @@
 \usepackage{enumitem}
 \usepackage{todonotes}
 \usepackage{csquotes}
+\usepackage{listings}
+\lstset{language=SPARQL,breaklines=true}
 \usepackage{siunitx}
 \usepackage[labelsep=period]{caption}
 \usepackage{mwe}
@@ -144,6 +146,7 @@ SNIK is loaded from the given SPARQL endpoint using fetch commands.
 % version 3.18.0
 \label{sec:relatedwork}
 \section*{Related Work}
+\todo{thomas, please finish this section, does not need to be long. Or remove the section and only cite the book? or include it in the respective parts?}
 Different techniques of Linked Data visualization are motivated and described in \cite{linkeddatavisualization}, including graph-based visualization.
 
 %In the course of the SNIK project
@@ -164,6 +167,7 @@ Different techniques of Linked Data visualization are motivated and described in
 \end{table}
 \fi
 
+\todo{kh: i think osmosys is not so relevant}
 \emph{OSMoSys} is an experimental prototype of a web application using the Sigma.js graph drawing library.
 It and handles large graphs using a level-of-detail system.
 However, the demo is not accessible anymore and the code is not freely available.
@@ -210,12 +214,36 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
 %\end{figure}
 
 \subsection*{Role Use}
-\todo{describe role use here}
+\begin{figure}[h]
+\begin{lstlisting}
+SELECT DISTINCT ?inner ?middle ?outer ?outerx {
+ <role> (rdfs:subClassOf|skos:closeMatch|^skos:closeMatch)* ?inner.
+ ?inner meta:subTopClass meta:Role.
+ OPTIONAL {
+  ?inner ?p ?middle.
+  ?middle meta:subTopClass meta:Function.
+  OPTIONAL {
+   ?middle ?q ?outer.
+   ?outer meta:subTopClass meta:EntityType.
+   OPTIONAL {?outer (skos:closeMatch|^skos:closeMatch|^rdfs:subClassOf)+ ?outerx.}
+}}}
+\end{lstlisting}
+\caption{SPARQL query to generate the \emph{role use} visualization.}
+\label{lst:roleuse}
+\end{figure}
+\vspace{-3pt}
+A frequent question is, what a given role does and which information is needed for those functions represented by the entity types connected to those functions.
+This question is visually answered by the \enquote{role use} feature, which arranges roles, functions and entity types in concentric circles:
+(1) The first ring consists of the given role and all roles that are connected by a path of \aurl{rdfs}{subClassOf} and \aurl{skos}{closeMatch} edges.
+(2) The second ring consists of all functions adjacent to roles in the inner ring.
+(3) The third ring consists of all entity types adjacent to functions in the middle ring.
+(4) The final ring consists of all entity types that are connected to entity types from the third ring by a path of \aurl{skos}{closeMatch} and reverse \aurl{rdfs}{subClassOf} edges.
 \cref{fig:classuse}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\linewidth]{class-use-project-manager.pdf}
+    \includegraphics[width=0.6\linewidth]{class-use-project-manager.pdf}
     \caption{\emph{Role Use} of \aurl{bb}{ProjectManager}. Outermost layer ommitted due to space limitiations.}\label{fig:classuse}
+
 \end{figure}
 
 \section*{Approach}
@@ -294,11 +322,14 @@ The \emph{circle star} also rearranges the nodes using the force-directed layout
 
 \subsection*{Mixed Operations}
 \subsubsection*{Spiderworm}
+A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with a \emph{star} of \emph{B}.
+\Cref{fig:spiderworm} shows how we use a spiderworm to teach a student how the new concept \enquote{quality of data} is connected the the already introduced concept \enquote{patient identification number.}
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.5\linewidth]{spiderworm.pdf}
-    \caption{\emph{Spiderworm} between \aurl{bb}{PatientIdentificationNumber} and \aurl{bb}{QualityOfData}.}
-	\label{fig:path}
+    \caption{\emph{Spiderworm} from \aurl{bb}{PatientIdentificationNumber} to \aurl{bb}{QualityOfData}~\cite{snikgraphposter}.}
+	\label{fig:spiderworm}
 \end{figure}
 \vspace{-3pt}
 
@@ -336,25 +367,26 @@ The frame rate is especially low on large resoultions such as 4k (3840x2160) and
 %- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
 %(link to AB bachelor thesis if allowed)
 
-
-\begin{table}[h!]
-    \centering
-    \caption{Table captions should be placed above the tables.}\label{tab:<table-name>}
-    \begin{tabularx}{\linewidth}{|X|X|}
-        \hline
-        \textbf{Hazard Class}    & \textbf{A 1 to A III}                            \\ \hline
-        Flash point              & $< 21 ^\circ C / > 55 ^\circ C$                  \\ \hline
-        Density at $15 ^\circ C$ & $720\ \sfrac{kg}{m^3}$ to $860\ \sfrac{kg}{m^3}$ \\ \hline
-        Kinematic Viscosity      & $0,65$ to $4,0\cdot 10–6\ \sfrac{m^2}{s}$        \\ \hline
-    \end{tabularx}
+\begin{table}[h]
+\centering
+\caption{Namespaces.}
+\label{tab:namespaces}
+\begin{tabularx}{\linewidth}{|l|X|l|}
+%\toprule
+\hline
+\textbf{Prefix}	&\textbf{Ontology}				&\textbf{Source}\\
+%\midrule
+meta	&\url{http://www.snik.eu/ontology/meta}		&Meta Model\\ \hline
+bb		&\url{http://www.snik.eu/ontology/bb}		&Textbook~\cite{bb}\\\hline
+ob		&\url{http://www.snik.eu/ontology/ob}		&Textbook~\cite{ob}\\\hline
+%\url{http://www.snik.eu/ontology/he}		&Textbook~\cite{he}\\\hline
+%\url{http://www.snik.eu/ontology/ciox}		&CIO Interview\\\hline
+%\url{http://www.snik.eu/ontology/it4it}		&Standard~\cite{it4it}\\\hline
+%k\bottomrule
+\end{tabularx}
 \end{table}
 
 \noindent Tables and Figures should be centered.
-
-\begin{itemize}
-    \item Bullet points may be used
-    \item ...
-\end{itemize}
 
 \begin{enumerate}[align=left, labelwidth=1ex]
     \item Numbering may be used, too.
@@ -368,7 +400,7 @@ The frame rate is especially low on large resoultions such as 4k (3840x2160) and
 
 
 \section*{Acknowledgement}
-This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1. SNIK Graph was presented in poster form at \cite{snikgraphposter}.
+This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1. SNIK Graph is presented in poster form at \cite{snikgraphposter}.
 \section*{References}
 
 %\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
