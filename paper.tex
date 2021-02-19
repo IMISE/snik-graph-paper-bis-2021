@@ -134,11 +134,11 @@ When showing instances, each RDF triple maps to an edge between two nodes repres
 When visualizing ontologies, edges between class nodes need to represent domain-range pairs and OWL restrictions.
 
 Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
-\todo{Vorschlag von Michelle: Verwendung in der Lehre setzt intuitive/leicht erlernbare Benutzung des Graphen voraus um zu vermeiden wertvolle Vorlesungszeit an ein Tutorial zu verlieren --> Bekannet Tastaturshortcuts, Drag&Drop, übersichtliches }
+\todo{Vorschlag von Michelle: Verwendung in der Lehre setzt intuitive/leicht erlernbare Benutzung des Graphen voraus um zu vermeiden wertvolle Vorlesungszeit an ein Tutorial zu verlieren --> Bekannet Tastaturshortcuts, Drag and Drop, übersichtliches }
 
 \section*{Implementation}
-Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js\cite{cytoscape}.
-SNIK Graph is freely available as open source software at \footnote{\url{https://github.com/imise/snik-cytoscape.js}}
+Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js~\cite{cytoscape}.
+SNIK Graph is freely available as open source software at \footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
 SNIK is loaded from the given SPARQL endpoint using fetch commands.
 
 % version 3.18.0
@@ -185,38 +185,7 @@ Thus the maximum graph size and performance cannot be determined.
 
 
 \section*{Features}
-As SNIK consists of more than 4000 classes, viewing large parts of it at once does not convey much information, see \cref{fig:much}.
-To alleviate this, SNIK offers multiple exploration methods described in the following.
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{much.pdf}
-    \caption{Excerpt of SNIK using the default force directed layout.}\label{fig:much}
-\end{figure}
-
-\subsection*{Search}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\linewidth]{search.png}
-    \caption{Visual search results for \enquote{Chief Information Officer} in SNIK Graph. Automatically generated interlinks that are not yet manually validated are shown with an exclamation mark.}\label{fig:search}
-\end{figure}
-
-The search index is populated from the target SPARQL endpoint and is implemented using the Fuse.js library that is based on the Baeza-Yates--Gonnet algorithm~\cite{textsearching}.
-Fuse.js\footnotemark{} is a light-weight, purely client side JavaScript library and presents an alternative to backend-driven indexes like Lucene.%
-\footnotetext{\url{https://fusejs.io/}, \url{https://github.com/krisk/Fuse}}
-This enables fast fuzzy search on any dataset loaded via SPARQL endpoint but requires waiting for index initialization on the first search of each user session.
-Search results presented to the user are color coded in three categories: visible (green), invisible (yellow)%
-\footnote{The resource is either \emph{filtered} or \emph{hidden}.}% \cref{sec:visibility}
- and not loaded (red)%
-\footnote{The resource is included in the search index built from the SPARQL endpoint but either deleted in the graph or not loaded in the first place, such as due to configuration.}.
-Each search entry of a class contains the label values of \aurl{rdfs}{label} (long form) and \aurl{skos}{altLabel} (short and alternative forms) with a weight of 0.7.
-Textbook definitions are included with a weight of 0.3.
-Labels of resources connected via \aurl{skos}{closeMatch} interlinks in either direction are included as well, because those resources are defined as semantically close, so we assume their labels are synonyms.
-Fuzzy matching is enabled with a threshold of \num{0.25}.
-The resource \aurl{bb}{ChiefInformationOfficer} can thus be found by entering either \enquote{CIO} (alternative label), \enquote{vice president} (part of the definition) or \enquote{Leiter des Rechenzentrums} (German alternative label of \aurl{ob}{ChiefInformationOfficer}).
-Search results can then be selected in the graph, see~\cref{fig:search}, which allows chaining the path and neighbourhood operations described in their respective sections.%cannot cref because of unnumbered section star commands
-
 \subsection*{Compound Layout}
-
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{combine.pdf}
@@ -232,6 +201,48 @@ Those pairs are however connected by interlinks if they have a label in common a
 To emphasize the difference in perspective, even if the name is an exact match, the interlinks are only typed as \aurl{skos}{match} and not as the more restrictive \aurl{skos}{exactMatch} or \aurl{owl}{equivalentClass}.
 \todo{Franziska or Birgit: you you have a good example from the blue book and orange book? "information managment" or something similar?}
 Users can group interlinked nodes together and either display them side by side or on top of each other, see \cref{fig:combine}.
+As SNIK consists of more than 4000 classes, viewing large parts of it at once does not convey much information.%, see \cref{fig:much}.
+To alleviate this, SNIK offers multiple exploration methods described in the following.
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=\linewidth]{much.pdf}
+%    \caption{Excerpt of SNIK using the default force directed layout.}\label{fig:much}
+%\end{figure}
+
+\subsection*{Role Use}
+\todo{describe role use here}
+\cref{fig:classuse}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{class-use-project-manager.pdf}
+    \caption{\emph{Role Use} of \aurl{bb}{ProjectManager}. Outermost layer ommitted due to space limitiations.}\label{fig:classuse}
+\end{figure}
+
+\section*{Approach}
+At the core of SNIK Graph is incremental exploration, which starts at one or more nodes and gradually expands them to related ones.
+
+\subsection*{Search}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{search.pdf}
+    \caption{Visual search results for \enquote{Chief Information Officer} in a part of SNIK.}\label{fig:search}
+\end{figure}
+
+Due to the large amount of resources, exploration often begins with a search.
+The search index is populated from the target SPARQL endpoint and is implemented using the Fuse.js library that is based on the Baeza-Yates--Gonnet algorithm~\cite{textsearching}.
+Fuse.js\footnotemark{} is a light-weight, purely client side JavaScript library and presents an alternative to backend-driven indexes like Lucene.%
+\footnotetext{\url{https://fusejs.io/}, \url{https://github.com/krisk/Fuse}}
+This enables fast fuzzy search on any dataset loaded via SPARQL endpoint but requires waiting for index initialization on the first search of each user session.
+Search results presented to the user are color coded in three categories: visible (green), invisible (yellow)%
+\footnote{The resource is either \emph{filtered} or \emph{hidden}.}% \cref{sec:visibility}
+ and not loaded (red)%
+\footnote{The resource is included in the search index built from the SPARQL endpoint but either deleted in the graph or not loaded in the first place, such as due to configuration.}.
+Each search entry of a class contains the label values of \aurl{rdfs}{label} (long form) and \aurl{skos}{altLabel} (short and alternative forms) with a weight of 0.7.
+Textbook definitions are included with a weight of 0.3.
+Labels of resources connected via \aurl{skos}{closeMatch} interlinks in either direction are included as well, because those resources are defined as semantically close, so we assume their labels are synonyms.
+Fuzzy matching is enabled with a threshold of \num{0.25}.
+The resource \aurl{bb}{ChiefInformationOfficer} can thus be found by entering either \enquote{CIO} (alternative label), \enquote{vice president} (part of the definition) or \enquote{Leiter des Rechenzentrums} (German alternative label of \aurl{ob}{ChiefInformationOfficer}).
+Search results are then selected in the graph, see~\cref{fig:search}, which allows further exploration by chaining the path and neighbourhood operations described in following.
 
 \subsection*{Shortest Paths}
 \begin{figure}[h!]
@@ -266,20 +277,30 @@ Furthermore, filtering, such as by knowledge source or type of relation or resou
 An general approach to solve the problem of informative shortest paths is \emph{weighted shortest paths for RDF graphs (WiSP)}~\cite{wisp}.
 Future work includes adopting this approach to SNIK Graph and evaluating it with its users.
 Another approach is to show all short paths under a given length and let the user remove unwanted ones manually, as employed by \emph{Relfinder}~\cite{relfinder}.
-% Research into most interesting short paths between objects relfinder, wisp, anna brakemeier, anatoli zeiser
 
 \subsection*{Neighbourhood Operations}
+Exploration using neighbours, that is the successive uncovering of nodes adjacent to a starting node given by a user, is a common feature of tools such as \cite{lodlive} and \cite{vizlod}.%
+\subsection*{Star}
+The directed and undirected star operations show nodes connected to selected nodes via all paths that contain at most one property other than \aurl{skos}{closeMatch}.
+The \emph{circle star} also rearranges the nodes using the force-directed layout locally on the currently visible subgraph.
+\Cref{fig:star} shows a mind map of strategic information management, created by an undirected star, which can be used by a teacher to prepare a lecture about the topic.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{strategic-im.pdf}
+    \caption{Undirected \emph{Star} of \aurl{bb}{StrategicInformationManagement}.}
+	\label{fig:star}
+\end{figure}
+\vspace{-3pt}
 
 \subsection*{Mixed Operations}
 \subsubsection*{Spiderworm}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\linewidth]{spiderworm.pdf}
-    \caption{\emph{Spiderworm} between \aurl{bb}{PatientIdentificationNumber} and \aurl{bb}{QualityOfData} in SNIK Graph.}
+    \includegraphics[width=0.5\linewidth]{spiderworm.pdf}
+    \caption{\emph{Spiderworm} between \aurl{bb}{PatientIdentificationNumber} and \aurl{bb}{QualityOfData}.}
 	\label{fig:path}
 \end{figure}
 \vspace{-3pt}
-\subsection*{Circle Star}
 
 \section*{Discussion}
 % A problem is that related approaches are not available as open source ...
@@ -346,7 +367,7 @@ The frame rate is especially low on large resoultions such as 4k (3840x2160) and
 \end{equation}
 
 
-\section*{Ackknowledgement}
+\section*{Acknowledgement}
 This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1. SNIK Graph was presented in poster form at \cite{snikgraphposter}.
 \section*{References}
 
