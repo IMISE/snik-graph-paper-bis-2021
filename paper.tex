@@ -81,7 +81,7 @@
 \newcommand{\firstauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 \newcommand{\secondauthor}{Thomas Pause\textsuperscript{2[https://orcid.org/1111-2222-3333-4444]}\todo{Thomas: deine orcid ggnf. erstellen und hier eintragen }}
 \newcommand{\secondauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-\newcommand{\thirdauthor}{Franziska Jahn\textsuperscript{3[https://orcid.org/1111-2222-3333-4444]}}%\todo{fj: orcid bitte anpassen}
+\newcommand{\thirdauthor}{Franziska Jahn\textsuperscript{3[https://orcid.org/0000-0002-7687-8544]}}%\todo{fj: orcid bitte anpassen}
 \newcommand{\thirdauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
 
 %===========[ CONTENT ]=========================================================
@@ -94,6 +94,8 @@ We present SNIK Graph, a graph-based linked data visualization web application t
 \paragraph{Keywords:} Linked open data, health information systems, information management
 
 \section*{Introduction}%
+[FJ:] Medical and health informatics integrates knowledge of business information systems, computer science and medicine. As a comparatively young research discipline, it lacks of a uniform terminology, especially for describing health information systems and their management. However, preparing students for practical or scientific work in the domain of health information systems requires an integrated system of concepts linking the terms of the different disciplines. SNIK, the semantic network of information management in hospitals, is an ontology linking the knowledge of the textbooks (Winter et al. 2011, Ammenwerth et al. 2014, Heinrich et al. 201x \todo{ QUELLEN einfügen}), the IT4IT standard \todo{ QUELLE einfügen}, and knowledge about information management at a certain German university hospital. It thus integrates theoretical knowledge of medical informatics and information systems as well as practical knowledge from industry and a health institution. The SNIK ontology is represented by SNIK Graph. [FJ] \todo{Konrad: Mir hatte hier am Anfang ein einführender Text gefehlt. Schau mal, ob das so passt.}
+
 SNIK Graph is a web application\footnote{\url{http://www.snik.eu/graph}} that visualizes RDF resources as nodes and triples as edges of a graph.
 The graph is visualized using the Cytoscape.js~\cite{cytoscapejs} library with the force-directed Euler layout. %, see%~\cref{fig:snik-graph-overview}.
 With several thousand classes, specific parts of SNIK can be hard to discern.
@@ -203,7 +205,9 @@ A major difficulty in understanding the domain of HIS management is the differen
 Thus, we model each source separately and do not merge concepts pairs with the same meaning.
 Those pairs are however connected by interlinks if they have a label in common and are verified manually, resulting in 713 interlinks. 
 To emphasize the difference in perspective, even if the name is an exact match, the interlinks are only typed as \aurl{skos}{match} and not as the more restrictive \aurl{skos}{exactMatch} or \aurl{owl}{equivalentClass}.
-\todo{Franziska or Birgit: you you have a good example from the blue book and orange book? "information managment" or something similar?}
+\todo{Franziska or Birgit: you you have a good example from the blue book and orange book? "information managment" or something similar? Konrad: Nimm den Star um "ob/ProjectManagement".} 
+
+[FJ] The concept "project management" both exists in a textbook (Ammenwerth) and in the knowledge about information management in a German university hospital. Grouping both concepts with the help of the star function and a a closer look at the nodes' neigborhood the user detects that the terms have a different meaning. Whereas the text book deals with the management of single projects, in the CIO's world "project management" means managing multiple projects. [FJ]
 Users can group interlinked nodes together and either display them side by side or on top of each other, see \cref{fig:combine}.
 As SNIK consists of more than 4000 classes, viewing large parts of it at once does not convey much information.%, see \cref{fig:much}.
 To alleviate this, SNIK offers multiple exploration methods described in the following.
