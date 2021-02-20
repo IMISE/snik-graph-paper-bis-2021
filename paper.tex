@@ -89,30 +89,45 @@
 \maketitle
 
 \paragraph{Abstract.}% The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.
-Students of medical informatics need to internalize complex relations between large amounts of concepts of health information systems (HIS) and their management.
-We present SNIK Graph, a graph-based linked data visualization web application that supports teaching textbook knowledge about HIS management.
-\paragraph{Keywords:} Linked open data, health information systems, information management
+% ~ 150 words
+Medical and health informatics integrates knowledge of business information systems, computer science and medicine.
+As a comparatively young research discipline, it lacks a uniform terminology, especially for describing health information systems and their management.
+SNIK, the semantic network of information management in hospitals, is an ontology that combines the knowledge of three textbooks, the IT4IT standard and an interview with a hospital CIO.
+Graph-based visualizations allow teachers to intuitively convey relationships between a selection of those concepts and also allow students to explore the domain on their own.
+We present SNIK Graph, a web-based client-side open-source Linked Data visualization for both classes and instances that is optimized for teaching and studying knowledge about the management of health information systems.
+Due to the large amount of concepts and relationships, visualizing SNIK as a graph causes overplotting, which we solve using filters, searches and exploratory operations. 
+%Students of medical informatics need to internalize complex relations between large amounts of concepts of health information systems (HIS) and their management.
+%We present SNIK Graph, a graph-based linked data visualization web application that supports teaching textbook knowledge about HIS management.
+\paragraph{Keywords:} Linked open data visualization, health information systems, information management, 
 
 \section*{Introduction}%
-[FJ:] Medical and health informatics integrates knowledge of business information systems, computer science and medicine. As a comparatively young research discipline, it lacks of a uniform terminology, especially for describing health information systems and their management. However, preparing students for practical or scientific work in the domain of health information systems requires an integrated system of concepts linking the terms of the different disciplines. SNIK, the semantic network of information management in hospitals, is an ontology linking the knowledge of the textbooks (Winter et al. 2011, Ammenwerth et al. 2014, Heinrich et al. 201x \todo{ QUELLEN einfügen}), the IT4IT standard \todo{ QUELLE einfügen}, and a CIO's knowledge about information management at a certain German university hospital. It thus integrates theoretical knowledge of medical informatics and information systems as well as practical knowledge from industry and a health institution. The SNIK ontology is represented by SNIK Graph. [FJ] \todo{Konrad: Mir hatte hier am Anfang ein einführender Text gefehlt. Schau mal, ob das so passt.}
+Medical and health informatics integrates knowledge of business information systems, computer science and medicine.
+As a comparatively young research discipline, it lacks a uniform terminology, especially for describing health information systems and their management.
+Several textbooks provide different perspectives of the discipline but the linear struture inherent in a book does not intuitively convey the highly connected nature of the concepts of the domain.
+Thus, preparing students for practical or scientific work in the domain of health information systems requires an integrated system of concepts linking the terms of the different disciplines.
+SNIK, the semantic network of information management in hospitals, is an ontology linking the knowledge of three textbooks~\cite{bb,ob,he}, the IT4IT standard~\cite{it4it}, and a CIO's knowledge about information management at a certain German university hospital.
+It thus integrates theoretical knowledge of medical informatics and information systems as well as practical knowledge from industry and a health institutions.
+%The SNIK ontology is visualized by SNIK Graph.
 
-SNIK Graph is a web application\footnote{\url{http://www.snik.eu/graph}} that visualizes RDF resources as nodes and triples as edges of a graph.
-The graph is visualized using the Cytoscape.js~\cite{cytoscapejs} library with the force-directed Euler layout. %, see%~\cref{fig:snik-graph-overview}.
-With several thousand classes, specific parts of SNIK can be hard to discern.
-Thus, there are several options to view subgraphs of SNIK, for example to show only a specific chapter of a book to prepare a lecture about a specific topic.
-Users can also search for and restrict the view to a single class and then show the neighbourhood of that class %(see \cref{fig:snik-graph-circle-star})
- and subsequently the neighbourhood of selected neighbours of the previous step.
-SNIK Graph can also calculate the shortest path to between classes.
-Path and neighourhood operations are joined in the \enquote{spider worm}
+Graph-based visualizations allow teachers to intuitively convey relationships between a selection of those concepts and also allow students to explore the domain on their own~\cite{ontologybased}.
+There are several existing graph-based Linked Data visualizations~\cite{linkeddatavisualization}, which visualize RDF resources (classes or instanes) as nodes and their relationships as edges.
+but they do not fit our requirements~\cite{visualizationoflargeontologies}.
+Our contribution is SNIK Graph, a web application\footnote{\url{http://www.snik.eu/graph}} that offers Linked Data visualization for both classes and instances and according to the requirements of SNIK and its users.
+%The graph is visualized using the Cytoscape.js~\cite{cytoscapejs} library with the force-directed Euler layout. %, see%~\cref{fig:snik-graph-overview}.
+With the thousands of classes of SNIK, graph-based visualization suffers from overplotting.
+Thus, SNIK Graph offers several options to select and layout subgraphs, for example to show only a specific chapter of a book to prepare a lecture about a specific topic.
+Users can also iteratively explore SNIK starting at a single class using neighbourhood and path operations. %(see \cref{fig:snik-graph-circle-star})
+% and subsequently the neighbourhood of selected neighbours of the previous step.
+%SNIK Graph can also calculate the shortest path to between classes.
+%Path and neighourhood operations are joined in the \enquote{spider worm}
 %(see \cref{fig:snik-graph-spiderworm})
-, which consists of the shortest path between a start node and an end node together with the end node’s neighbourhood, illustrate the context of a concept.
+%, which consists of the shortest path between a start node and an end node together with the end node’s neighbourhood, illustrate the context of a concept.
 
 
-\subsection*{Motivation}%
-Students of medical informatics need to\todo{Vorschlag von Michelle: Dozenten können Ausschnitte des Graphen verwenden um in Vorlesungen den Zusammenhang von Konzepten vereinfacht darzustellen bzw. die Studenten diese Zusammenhänge durch Recherche im Graphen erarbeiten lassen. } internalize complex relations between large amounts of concepts of health information systems and their management~\cite{visualizationoflargeontologies}.
-Graph-based Linked Data visualization~\cite{linkeddatavisualization} is well suited for this task but the available tools do not fit our requirements~\cite{visualizationoflargeontologies}.
+%\subsection*{Motivation}%
+%They also allow students of medical informatics internalize complex relations between large amounts of concepts of health information systems and their management~\cite{visualizationoflargeontologies}.
 %\cite{snikgraphposter}
-
+%
 %A large amount of relevant knowledge is freely available as Linked Open Data.
 %This structured approach is well suited for consumption by machines but basic access mechanisms like the text-based RDF serializations and SPARQL queries are not well suited for humans for large knowledge bases, especially for non-expert users.
 %While the Semantic Web field has been providing a wealth of knowledge and is increasingly adopted by mainstream industries, not all use cases are yet supported by easy-to-use tools~\cite{semanticwebfield}.
@@ -124,32 +139,18 @@ Graph-based Linked Data visualization~\cite{linkeddatavisualization} is well sui
 %However, there is a lack of easy-to-use tools along the whole lifecycle of data~\cite{semanticwebfield}.
 % - software is hard to publish
 %The SNIK ontology~\cite{sniktec} contains knowledge about the management of hospital information systems.
-%The SNIK ontology models a typical hospital information system as a complex structure of roles (who), functions (does what) and entity types (information needed).
 
-\cite{ontologybased}
-\cite{sniktec}
+%\cite{ontologybased}
+%\cite{sniktec}
 
-\subsection*{Design Goals}
-SNIK Graph's original main goal is to present knowledge extracted from text books to users that may not have any Semantic Web experience.
-The time and cognitive load of the users required to install and operate the application should be as low as possible, so that they can focus on the data at hand and experience a benefit compared to only reading the textbook, such as when studying for an exam.
-As such, SNIK Graph is designed as a a web application, so that it is operating system agnostic and does not need to be installed. 
-
-When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
-When visualizing ontologies, edges between class nodes need to represent domain-range pairs and OWL restrictions.
-
-Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
-\todo{Vorschlag von Michelle: Verwendung in der Lehre setzt intuitive/leicht erlernbare Benutzung des Graphen voraus um zu vermeiden wertvolle Vorlesungszeit an ein Tutorial zu verlieren --> Bekannet Tastaturshortcuts, Drag and Drop, übersichtliches }
-
-\section*{Implementation}
-Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js~\cite{cytoscape}.
-SNIK Graph is freely available as open source software at \footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
-SNIK is loaded from the given SPARQL endpoint using fetch commands.
 
 % version 3.18.0
 \label{sec:relatedwork}
 \section*{Related Work}
-\todo{thomas, please finish this section, does not need to be long. Or remove the section and only cite the book? or include it in the respective parts?}
-Different techniques of Linked Data visualization are motivated and described in \cite{linkeddatavisualization}, including graph-based visualization.
+Different techniques and tools for Linked Data visualization are motivated and described in \cite{linkeddatavisualization}, including graph-based visualization.
+
+\todo{thomas, please finish this section}
+%Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
 
 %In the course of the SNIK project
 
@@ -169,28 +170,81 @@ Different techniques of Linked Data visualization are motivated and described in
 \end{table}
 \fi
 
-\todo{kh: i think osmosys is not so relevant}
-\emph{OSMoSys} is an experimental prototype of a web application using the Sigma.js graph drawing library.
-It and handles large graphs using a level-of-detail system.
-However, the demo is not accessible anymore and the code is not freely available.
-Thus the maximum graph size and performance cannot be determined.
+%\todo{kh: i added this first but commented it out again, i think osmosys is not so relevant, espc. not that it is not relevant.}
+%\emph{OSMoSys} is an experimental prototype of a web application using the Sigma.js graph drawing library.
+%It and handles large graphs using a level-of-detail system.
+%However, the demo is not accessible anymore and the code is not freely available.
+%Thus the maximum graph size and performance cannot be determined.
 
 % tarsier: 3d visualization in planes. could be used for entity type vs role vs function. open source but build error.
 
-\emph{}
-% if no answer: However, there is no .
 % demo link given in paper at http://www.hyperbody.nl/demo/osmosys only shows a video, author is asked for demo, repo, free and open source via email by KH
 % based on sigma.js
 
-\section*{Meta Model}
-\begin{figure}[h!]
+\section*{Preliminaries}
+SNIK is created by manually extracting knowledge from sources such as textbooks.
+It describes abstract concepts of hospital information systems and not any one in particular\footnote{With the exception of the CIO interview modelled as \url{http://www.snik.eu/ontology/ciox}.}.
+Thus, SNIK is an ontology describing concepts classes, such as \aurl{ob}{Consultant}.
+However, the large number of classes and the reliance on RDF/RDFS formalisms has many characteristics of a knowledge base describing instances instead of classes.
+This is a different approach than for example DBpedia, where many instances, such as \emph{Elephant}, actually represent abstract concepts with sets of individuals (classes).
+Because of this modelling choice, the sources of SNIK are represented by a different subontologies that follow a meta ontology, the SNIK meta model, see ~\cref{fig:metamodel}.
+Under the perspective of the meta model, the only parts of an abstract hospital information system that shall be described are roles (who), functions (does what) and entity types (which information is therefore needed).
+
+A major difficulty in understanding the domain of HIS management is the difference in perspective and nomenclature between the different textbooks, standards and other sources.
+Thus, we model each source separately and do not merge concepts pairs with the same meaning.
+Those pairs are however connected by interlinks if they have a label in common and are verified manually, resulting in 713 interlinks. 
+To emphasize the difference in perspective, even if the name is an exact match, the interlinks are only typed as \aurl{skos}{match} and not as the more restrictive \aurl{skos}{exactMatch} or \aurl{owl}{equivalentClass}.
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{metamodel9s.pdf}
-    \caption{The Meta Model of the SNIK Ontology.}\label{fig:metamodel}
+    \caption{The Meta Model of the SNIK Ontology~\cite{snikposter}.}\label{fig:metamodel}
 \end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Namespaces.}
+\label{tab:namespaces}
+\begin{tabularx}{\linewidth}{|l|X|l|l|}
+%\toprule
+\hline
+\textbf{Prefix}	&\textbf{Ontology}				&\textbf{Source}		&\textbf{Color}\\
+%\midrule
+meta	&\url{http://www.snik.eu/ontology/meta}		&Meta Model			&red\\ \hline
+bb		&\url{http://www.snik.eu/ontology/bb}		&Textbook~\cite{bb}	&blue\\\hline
+ob		&\url{http://www.snik.eu/ontology/ob}		&Textbook~\cite{ob}	&orange\\\hline
+he		&\url{http://www.snik.eu/ontology/he}		&Textbook~\cite{he}	&green\\\hline
+ciox	&\url{http://www.snik.eu/ontology/ciox}		&CIO Interview		&cyan\\\hline
+%\url{http://www.snik.eu/ontology/it4it}		&Standard~\cite{it4it}\\\hline
+%k\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Design Goals and Requirements}
+SNIK Graph's main goal is to visualize knowledge extracted from text books to users that may not have any Semantic Web experience.
+The time and cognitive load of the users required to install, learn and operate the application should be as low as possible, so that they can focus on the data at hand and experience a benefit compared to only reading the textbook, such as when studying for an exam.
+As such, SNIK Graph is designed as a a web application, so that it is operating system agnostic and does not need to be installed. 
+
+%\todo{Vorschlag von Michelle: Verwendung in der Lehre setzt intuitive/leicht erlernbare Benutzung des Graphen voraus um zu vermeiden wertvolle Vorlesungszeit an ein Tutorial zu verlieren --> Bekannet Tastaturshortcuts, Drag and Drop, übersichtliches }
+
+When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
+When visualizing ontologies, edges between class nodes need to represent domain-range pairs and OWL restrictions.
+
+
+
+\section*{Implementation}
+Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js~\cite{cytoscape}.
+SNIK Graph is freely available as open source software\footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
+SNIK is loaded from the given SPARQL endpoint using fetch commands.
 
 
 \section*{Features}
+\subsection*{Filters}
+
+
+\subsection*{Tabs}
+\todo{thomas: please describe your tabs}
+
 \subsection*{Compound Layout}
 \begin{figure}[h!]
     \centering
@@ -200,14 +254,6 @@ Thus the maximum graph size and performance cannot be determined.
 \end{figure}
 \vspace{-3pt}
 %\noindent For citations of references, we prefer the use of square brackets and consecutive numbers, e.g. as shown by Author et al. [2], [3, pp. 5–10], as mentioned earlier [1], [3], [9]. The following bibliography provides the basic formats as a reference list with entries for journal articles [1], book chapter [2], as well as a URL [5]. For further guidance please refer to the \href{https://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf}{IEEE-Reference-Guide}.
-
-A major difficulty in understanding the domain of HIS management is the difference in perspective and nomenclature between the different textbooks, standards and other sources.
-Thus, we model each source separately and do not merge concepts pairs with the same meaning.
-Those pairs are however connected by interlinks if they have a label in common and are verified manually, resulting in 713 interlinks. 
-To emphasize the difference in perspective, even if the name is an exact match, the interlinks are only typed as \aurl{skos}{match} and not as the more restrictive \aurl{skos}{exactMatch} or \aurl{owl}{equivalentClass}.
-\todo{Franziska or Birgit: you you have a good example from the blue book and orange book? "information managment" or something similar? Konrad: Nimm den Star um "ob/ProjectManagement".} 
-
-[FJ] The concept "project management" both exists in a textbook (Ammenwerth) and in the knowledge about information management in a German university hospital. Grouping both concepts with the help of the star function the user detects that the terms have a different meaning according to their neighboorhood terms. Whereas the text book deals with the management of single projects, in the CIO's world "project management" means managing multiple projects. [FJ]
 
 Users can group interlinked nodes together and either display them side by side or on top of each other, see \cref{fig:combine}.
 As SNIK consists of more than 4000 classes, viewing large parts of it at once does not convey much information.%, see \cref{fig:much}.
@@ -238,20 +284,22 @@ SELECT DISTINCT ?inner ?middle ?outer ?outerx {
 \end{figure}
 \vspace{-3pt}
 A frequent question is, what a given role does and which information is needed for those functions represented by the entity types connected to those functions.
-This question is visually answered by the \enquote{role use} feature, which arranges roles, functions and entity types in concentric circles:
-(1) The first ring consists of the given role and all roles that are connected by a path of \aurl{rdfs}{subClassOf} and \aurl{skos}{closeMatch} edges.
-(2) The second ring consists of all functions adjacent to roles in the inner ring.
-(3) The third ring consists of all entity types adjacent to functions in the middle ring.
-(4) The final ring consists of all entity types that are connected to entity types from the third ring by a path of \aurl{skos}{closeMatch} and reverse \aurl{rdfs}{subClassOf} edges.
-\cref{fig:classuse}
+This question is visually answered by the \enquote{role use} feature, which arranges roles, functions and entity types in concentric circles, see \Cref{fig:classuse}:
+
+\begin{enumerate}[align=left, labelwidth=1ex]
+\item The first ring consists of the given role and all roles that are connected by a path of \aurl{rdfs}{subClassOf} and \aurl{skos}{closeMatch} edges.
+\item The function ring consists of all functions adjacent to roles in the inner ring.
+\item The third ring consists of all entity types adjacent to functions in the middle ring.
+\item The final ring consists of all entity types that are connected to entity types from the third ring by a path of \aurl{skos}{closeMatch} and reverse \aurl{rdfs}{subClassOf} edges.
+\end{enumerate}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth]{class-use-project-manager.pdf}
     \caption{\emph{Role Use} of \aurl{bb}{ProjectManager}. Outermost layer ommitted due to space limitiations.}\label{fig:classuse}
-
 \end{figure}
 
 \section*{Approach}
+%Due to its large size, visualizing all of SNIK at once  overplotting.
 At the core of SNIK Graph is incremental exploration, which starts at one or more nodes and gradually expands them to related ones.
 
 \subsection*{Search}
@@ -325,6 +373,12 @@ The \emph{circle star} also rearranges the nodes using the force-directed layout
 \end{figure}
 \vspace{-3pt}
 
+\todo{Konrad: Nimm den Star um "ob/ProjectManagement".} 
+The concept \emph{project management} both exists in a textbook~\cite{ob} and in the knowledge about information management in a German university hospital.
+Grouping both concepts with the help of the star function the user detects that the terms have a different meaning according to their neighboorhood terms.
+Whereas the text book deals with the management of single projects, in the CIO's world \enquote{project management} means managing multiple projects.
+
+
 \subsection*{Mixed Operations}
 \subsubsection*{Spiderworm}
 A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with a \emph{star} of \emph{B}.
@@ -338,75 +392,56 @@ A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with 
 \end{figure}
 \vspace{-3pt}
 
-\section*{Discussion}
+\section*{Conclusions and Future Work}
 % A problem is that related approaches are not available as open source ...
 % this hinders analysis and slows progress, as effort is not shared and ...
-\section*{Evaluation}
-SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
+%\section*{Evaluation}
+%SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
 
-\section*{Discussion}
 Different presentation forms are suitable for different use cases and data sets.
 % RDF browsers are well suited for ...
 
-\section*{Future Work}
+%\subsection*{Future Work}
 \subsection*{Performance}
 %On graphs of several thousand nodes, 
 The performance of SNIK Graph suffers in two key areas:
 
 %(1) Performing a force directed 
-\subsubsection*{Force-Directed Layouts}
+\subsection*{Force-Directed Layouts}
 As CPUs with 6 to 16 cores become the norm, the speed penalty of single-threaded code becomes enormous.
 Thus, the single-thread paradigm of JavaScript seriously hinders performance of CPU-bound applications like SNIK Graph.
 While web workers\footnote{\url{https://html.spec.whatwg.org/multipage/workers.html\#workers}} offer multithreading for JavaScript applications, they posess separate memory and cause large overheads for serialization and deserialization and are thus not suited for short-lived tasks like calculating a single step of a force-directed layout for parts of a given graph.
 Thus, a light-weight parallellization option is needed.
 The WebAssembly \enquote{threads}-proposal\footnote{\url{https://github.com/WebAssembly/proposals/issues/14}} provides such a construct, however it is only at phase 2 \enquote{Proposed Spec Text Available}, which need to be followed by the implementation in browsers and the standardization phase.
-The main developer of the Cytoscape.js library showed interest in rewriting a future version of the library in WebAssembly.
+The main developer of the Cytoscape.js library showed interest in then rewriting a future version of the library in WebAssembly.
 
 \subsubsection*{Graph Rendering}
-Due to the low performance of rendering on an HTML canvas, the frame rate drops significantly below a fluent 60 frames per second.
-The frame rate is especially low on large resoultions such as 4k (3840x2160) and on browsers other than Google Chrome (see table ...), where it can get as low as 2 FPS.
-%Another ... incredible power of modern GPUs.
+Due to the low performance of rendering on an HTML canvas, the frame rate drops significantly below a fluent 60 frames per second (FPS).
+The frame rate is especially low on large resolutions such as 4k (3840x2160) and on browsers other than Google Chrome, where the frame rate drops to as low as 5 FPS on an Intel i7-9700 at 4k on Firefox 86.0b8 on Arch Linux.
+Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer for Cytoscape.js has the potential to dramatically increase render speed. 
 
+% 4903 edges, 2643 nodes
 %\subsection*{Mobile Devices}
 
 %- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
 %(link to AB bachelor thesis if allowed)
 
-\begin{table}[h]
-\centering
-\caption{Namespaces.}
-\label{tab:namespaces}
-\begin{tabularx}{\linewidth}{|l|X|l|}
-%\toprule
-\hline
-\textbf{Prefix}	&\textbf{Ontology}				&\textbf{Source}\\
-%\midrule
-meta	&\url{http://www.snik.eu/ontology/meta}		&Meta Model\\ \hline
-bb		&\url{http://www.snik.eu/ontology/bb}		&Textbook~\cite{bb}\\\hline
-ob		&\url{http://www.snik.eu/ontology/ob}		&Textbook~\cite{ob}\\\hline
-%\url{http://www.snik.eu/ontology/he}		&Textbook~\cite{he}\\\hline
-%\url{http://www.snik.eu/ontology/ciox}		&CIO Interview\\\hline
-%\url{http://www.snik.eu/ontology/it4it}		&Standard~\cite{it4it}\\\hline
-%k\bottomrule
-\end{tabularx}
-\end{table}
 
-\noindent Tables and Figures should be centered.
-
-\begin{enumerate}[align=left, labelwidth=1ex]
-    \item Numbering may be used, too.
-    \item ...
-\end{enumerate}
-
-\noindent Equations should be centered and set on a separate line.
-\begin{equation}
-    x+y=z
-\end{equation}
+%\noindent Tables and Figures should be centered.
+%
+%\begin{enumerate}[align=left, labelwidth=1ex]
+%    \item Numbering may be used, too.
+%    \item ...
+%\end{enumerate}
+%
+%\noindent Equations should be centered and set on a separate line.
+%\begin{equation}
+%    x+y=z
+%\end{equation}
 
 
-\section*{Acknowledgement}
-This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1. SNIK Graph is presented in poster form at \cite{snikgraphposter}.
-\section*{References}
+\paragraph{Acknowledgements}
+This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1.% SNIK Graph is presented in poster form at \cite{snikgraphposter}. % KH2FJ: is that needed? I think not.
 
 %\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
 \bibliographystyle{plain}
