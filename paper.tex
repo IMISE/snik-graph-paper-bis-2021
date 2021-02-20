@@ -24,9 +24,10 @@
 \daurl{ob}{http://www.snik.eu/ontology/bb/}
 \daurl{meta}{http://www.snik.eu/ontology/meta/}
 \graphicspath{{./img/}}
-%\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
-%\addbibresource{/path/to/bib/file/example.bib} %Change path to your own .bib file
-
+\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
+\addbibresource{paper.bib}
+\addbibresource{snik.bib}
+\addbibresource{relatedwork.bib}
 
 % ==========[ FONT ]============================================================
 %For the font of the document uncoment one of the following options.
@@ -147,9 +148,30 @@ Users can also iteratively explore SNIK starting at a single class using neighbo
 % version 3.18.0
 \label{sec:relatedwork}
 \section*{Related Work}
-Different techniques and tools for Linked Data visualization are motivated and described in \cite{linkeddatavisualization}, including graph-based visualization.
+\citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} motivate and describe different techniques and tools for Linked Data visualization, including graph-based visualization.
+They identify 15 use cases and categorize them as related to T-Boxes, A-Boxes and both.
 
-\todo{thomas, please finish this section}
+\todo{konrad fills out the use cases from the book}
+SNIK Graph supports the following use cases:
+
+UC1
+The visualization of the complete T-Box.
+The global view of the 4117 classes of SNIK and their 12115 is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
+
+UC2
+The visualization of the information related to a specific class.
+The adjacent classes of any specific class can be visualized with the star operators (see section \enquote{Star}).
+A view of a specific class with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\cite{lodview} with a modified color scheme according to the SNIK subontology color coding.
+
+UC3
+The visualization of the information related to a specific property.
+Properties are not shown in SNIK Graph but can be browsed using the SNIK LodView browser.
+
+UC N...
+
+UC15
+
+\todo{thomas, please finish this section using some similar tools from the bachelor thesis}
 %Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
 
 %In the course of the SNIK project
@@ -240,7 +262,6 @@ SNIK is loaded from the given SPARQL endpoint using fetch commands.
 
 \section*{Features}
 \subsection*{Filters}
-
 
 \subsection*{Tabs}
 \todo{thomas: please describe your tabs}
@@ -443,8 +464,9 @@ Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer 
 \paragraph{Acknowledgements}
 This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1.% SNIK Graph is presented in poster form at \cite{snikgraphposter}. % KH2FJ: is that needed? I think not.
 
-%\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
-\bibliographystyle{plain}
-\bibliography{paper,snik,relatedwork}
+\section*{References}
+\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
+%\bibliographystyle{plain}
+%\bibliography{paper,snik,relatedwork}
 
 \end{document}
