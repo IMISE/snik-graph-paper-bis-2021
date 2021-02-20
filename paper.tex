@@ -154,18 +154,18 @@ They identify 15 use cases and categorize them as related to T-Boxes, A-Boxes an
 \todo{konrad fills out the use cases from the book}
 SNIK Graph supports the following use cases:
 
-UC1
-The visualization of the complete T-Box.
-The global view of the 4117 classes of SNIK and their 12115 is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
+UC1 / UC4
+The visualization of the complete T-Box (UC1) / A-Box (UC4).
+The global view of the 4117 classes of SNIK, their connecting triplse 12115 triples and the 73 instances is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
 
-UC2
-The visualization of the information related to a specific class.
-The adjacent classes of any specific class can be visualized with the star operators (see section \enquote{Star}).
-A view of a specific class with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\cite{lodview} with a modified color scheme according to the SNIK subontology color coding.
+UC2 / UC5
+The visualization of the information related to a specific class (UC2) / instance (UC5).
+The adjacent nodes of any specific resource (class or instance) can be visualized with the star operators (see section \enquote{Star}).
+A view of a specific resource with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\cite{lodview} with a modified color scheme according to the SNIK subontology color coding.
 
 UC3
 The visualization of the information related to a specific property.
-Properties are not shown in SNIK Graph but can be browsed using the SNIK LodView browser.
+Properties are not shown in SNIK Graph but can be browsed using the LodView installation.
 
 UC N...
 
@@ -254,11 +254,12 @@ When visualizing ontologies, edges between class nodes need to represent domain-
 
 
 
-\section*{Implementation}
-Following the design goals, SNIK Graph is implemented in JavaScript using the graph visualization library Cytoscape.js~\cite{cytoscape}.
+\section*{Implementation and Setup}
+Following the design goals, SNIK Graph is implemented in JavaScript (EcmaScript 2015) using the graph visualization library Cytoscape.js~\cite{cytoscape}.
 SNIK Graph is freely available as open source software\footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
-SNIK is loaded from the given SPARQL endpoint using fetch commands.
-
+As a client-side tool\footnotemark{}, SNIK Graph can be adapted for other knowledge bases and ontologies and published on any HTML web server by cloning the repository, installing the NPM dependencies and adapting the configuration file settings including the SPARQL endpoint URL.
+\footnotetext{Aside from a SPARQL endpoint.}
+An installation containing SNIK is published at \url{https://www.snik.eu/graph}.
 
 \section*{Features}
 \subsection*{Filters}
