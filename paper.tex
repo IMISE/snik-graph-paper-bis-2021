@@ -258,11 +258,13 @@ When visualizing ontologies, edges between class nodes need to represent domain-
 Following the design goals, SNIK Graph is implemented in JavaScript (EcmaScript 2015) using the graph visualization library Cytoscape.js~\cite{cytoscape}.
 SNIK Graph is freely available as open source software\footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
 As a client-side tool\footnotemark{}, SNIK Graph can be adapted for other knowledge bases and ontologies and published on any HTML web server by cloning the repository, installing the NPM dependencies and adapting the configuration file settings including the SPARQL endpoint URL.
-\footnotetext{Aside from a SPARQL endpoint.}
+\footnotetext{Aside from a SPARQL endpoint.}%
 An installation containing SNIK is published at \url{https://www.snik.eu/graph}.
 
 \section*{Features}
 \subsection*{Filters}
+Classes, instances and properties of SNIK can be hidden based on type, such as Role, and knowledge source (SPARQL graph).
+ 
 
 \subsection*{Tabs and Containers}
 \begin{figure}[h]
@@ -303,6 +305,7 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
 %\end{figure}
 
 \subsection*{Role Use}
+\todo{konrad an alle: was mache ich mit der sparql query? rausschmeissen, drin lassen oder umbauen?}
 \begin{figure}[h]
 \begin{lstlisting}
 SELECT DISTINCT ?inner ?middle ?outer ?outerx {
@@ -336,9 +339,9 @@ This question is visually answered by the \enquote{role use} feature, which arra
     \caption{\emph{Role Use} of \aurl{bb}{ProjectManager}. Outermost layer ommitted due to space limitiations.}\label{fig:classuse}
 \end{figure}
 
-\section*{Approach}
+%\section*{Approach}
 %Due to its large size, visualizing all of SNIK at once  overplotting.
-At the core of SNIK Graph is incremental exploration, which starts at one or more nodes and gradually expands them to related ones.
+%At the core of SNIK Graph is incremental exploration, which starts at one or more nodes and gradually expands them to related ones.
 
 \subsection*{Search}
 \begin{figure}[h!]
@@ -436,7 +439,8 @@ A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with 
 %\section*{Evaluation}
 %SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
 
-Different presentation forms are suitable for different use cases and data sets.
+%Different presentation forms are suitable for different use cases and data sets.
+\todo{conclusions}
 % RDF browsers are well suited for ...
 
 %\subsection*{Future Work}
