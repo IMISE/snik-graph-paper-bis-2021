@@ -161,7 +161,7 @@ The global view of the 4117 classes of SNIK, their connecting triplse 12115 trip
 UC2 / UC5
 The visualization of the information related to a specific class (UC2) / instance (UC5).
 The adjacent nodes of any specific resource (class or instance) can be visualized with the star operators (see section \enquote{Star}).
-A view of a specific resource with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\cite{lodview} with a modified color scheme according to the SNIK subontology color coding.
+A view of a specific resource with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\footnote{\url{https://lodview.it/}} with a modified color scheme according to the SNIK subontology color coding.
 
 UC3
 The visualization of the information related to a specific property.
@@ -264,20 +264,27 @@ An installation containing SNIK is published at \url{https://www.snik.eu/graph}.
 \section*{Features}
 \subsection*{Filters}
 
-\subsection*{Tabs}
+\subsection*{Tabs and Containers}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{tabs.png}
+    \caption{A session containing the default view and freely partitioned subgraphs containers.}
+	\label{fig:tabs}
+\end{figure}
+\vspace{-3pt}
 %For this subgraphs of the ontology have to be extracted and organized.
 %A feature of SNIK Graph, tabs, allows multi-instance usage.
 %One major issue in working with SNIK Graph was the missing ability of organizing teaching scenarios.
 To organize teaching scenarios, independent SNIK Graph instances are loaded into containers\footnotemark{} that can be organized around the browser window.
 \footnotetext{Implemented using the JavaScript GoldenLayout framework (\url{https://golden-layout.com/}).} 
-These containers can either be accessed as tabs or freely partitioned.
+These containers can either be accessed as tabs or freely partitioned see \cref{fig:tabs}.
+The content and of the all containers can be saved and loaded as a session to continue developing a teaching scenario at a later point.
 
 %This feature allows better workflows in preparation and presentation of teaching scenarios.
-%Additionally the design allows to store and restore sessions, that can be shared around computers and persons.
 %We use JSON formatted files for export and import.
 
 \subsection*{Compound Layout}
-\begin{figure}[h!]
+\begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{combine.pdf}
     \caption{Grouping of equivalent concepts from different sources in SNIK Graph (color coded).}% using the \enquote{combine matches} option.}
