@@ -151,12 +151,11 @@ Users can also iteratively explore SNIK starting at a single class using neighbo
 \citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} motivate and describe different techniques and tools for Linked Data visualization, including graph-based visualization.
 They identify 15 use cases and categorize them as related to T-Boxes, A-Boxes and both.
 
-\todo{thomas continues the use cases from the book (only list those that are supported)}
 SNIK Graph supports the following use cases:
 
 UC1 / UC4
 The visualization of the complete T-Box (UC1) / A-Box (UC4).
-The global view of the 4117 classes of SNIK, their connecting triplse 12115 triples and the 73 instances is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
+The global view of the 4117 classes of SNIK, their connecting 12115 triples and the 73 instances is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
 
 UC2 / UC5
 The visualization of the information related to a specific class (UC2) / instance (UC5).
@@ -167,13 +166,29 @@ UC3
 The visualization of the information related to a specific property.
 Properties are not shown in SNIK Graph but can be browsed using the LodView installation.
 
-UC N...
+UC6
+The visualization of the instances belonging to a specific class.
+The instances in SNIK Graph are shown near their specific class(es). \todo{Konrad: stimmt das so? hier war ich mir sehr unsicher}
 
-UC15
+UC7
+The visualization of the paths that link different instances.
+Several path operations can be used in SNIK Graph to explore the connections between instances.
 
-\todo{thomas, please finish this section using some similar tools from the bachelor thesis}
-%Users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
+UC8
+The exploration of the dataset.
+Besides the global view, SNIK Graph supports exploratory search and exploration of the knowledge graph.
+A fulltext search helps users to find their start ressource, path and expand operations leads them to an interesting exploration.
 
+UC13-15
+Filtering.
+SNIK Grah provides several filter options.
+Users can decide which sources (textbook) to use, what kinds of types depending on our meta model do display and can also filter along relations.
+
+The specific use case of SNIK Graph is, that users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
+It also has to be a web application, to be platform-independent.
+For better availability and adoption around stakeholders (especially teachers and students) it also has to be free and open source.
+Our research along other tools does not provide a proper fitting solution.
+\todo{konrad: ich denke das reicht hierzu aus, es geht doch nur darum zu zeigen wieso wir nicht tool xyz nutzen sondern unser eigenes machen oder? und die Auflistung der erfüllten usecases passt mMn auch sehr gut dazu}
 %In the course of the SNIK project
 
 % booktabs not allowed for this conference AFAIK
@@ -305,7 +320,7 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
 %\end{figure}
 
 \subsection*{Role Use}
-\todo{konrad an alle: was mache ich mit der sparql query? rausschmeissen, drin lassen oder umbauen?}
+\todo{konrad an alle: was mache ich mit der sparql query? rausschmeissen, drin lassen oder umbauen? TP: drinlassen, aber direkt ans Bild hängen.. Sowas wie aus der Query folgt dieses Bild. Ich finde sowas sollte schon rein ins Paper}
 \begin{figure}[h]
 \begin{lstlisting}
 SELECT DISTINCT ?inner ?middle ?outer ?outerx {
