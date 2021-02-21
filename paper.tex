@@ -111,8 +111,7 @@ It thus integrates theoretical knowledge of medical informatics and information 
 %The SNIK ontology is visualized by SNIK Graph.
 
 Graph-based visualizations allow teachers to intuitively convey relationships between a selection of those concepts and also allow students to explore the domain on their own~\cite{ontologybased}.
-There are several existing graph-based Linked Data visualizations~\cite{linkeddatavisualization}, which visualize RDF resources (classes or instanes) as nodes and their relationships as edges.
-but they do not fit our requirements~\cite{visualizationoflargeontologies}.
+There are several existing graph-based Linked Data visualizations~\cite{linkeddatavisualization}, which visualize RDF resources (classes or instanes) as nodes and their relationships as edges, but they do not fit our requirements~\cite{visualizationoflargeontologies}.
 Our contribution is SNIK Graph, a web application\footnote{\url{http://www.snik.eu/graph}} that offers Linked Data visualization for both classes and instances and according to the requirements of SNIK and its users.
 %The graph is visualized using the Cytoscape.js~\cite{cytoscapejs} library with the force-directed Euler layout. %, see%~\cref{fig:snik-graph-overview}.
 With the thousands of classes of SNIK, graph-based visualization suffers from overplotting.
@@ -472,7 +471,7 @@ Due to the low performance of rendering on an HTML canvas, the frame rate can dr
 While Cytoscape.js buffers already rendered parts, this mechanism suffers when moving around at medium zoom levels.
 The frame rate is especially low on large resolutions such as 4k (3840x2160) and on browsers other than Google Chrome / Chromium, where the minimum frame rate drops to as low as 8 FPS on an Intel i9-10900k at 4k on Mozilla Firefox 86 and 36 FPS on Chromium 88 on Arch Linux.
 We attribute the large difference between Chrome / Chromium and Firefox to the different JavaScript engines.
-While SNIK Graph does not require perfectly smooth motion and wild movements are not a common usage pattern, stuttering is still frustrating to users especially on less performant CPUs and browsers other than Chrome and contrary to our goals of minimizing friction for users. 
+While SNIK Graph does not require perfectly smooth motion and wild movements are not a common usage pattern, stuttering is still frustrating to users especially on less performant CPUs and browsers other than Chrome and contrary to our goal of minimizing friction for users. 
 Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer for Cytoscape.js has the potential to dramatically increase render speed.
 High framerates would also allow the study of nausea-free virtual reality presentation for Linked Data visualization.
 
