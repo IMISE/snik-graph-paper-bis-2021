@@ -147,48 +147,42 @@ Users can also iteratively explore SNIK starting at a single class using neighbo
 
 % version 3.18.0
 \label{sec:relatedwork}
-\section*{Related Work}
-\citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} motivate and describe different techniques and tools for Linked Data visualization, including graph-based visualization.
+\section*{Related Work and Use Cases}
+\citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} describe different techniques and tools for Linked Data visualization, including graph-based visualization.
 They identify 15 use cases and categorize them as related to T-Boxes, A-Boxes and both.
-
+When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
+When visualizing ontologies, edges between class nodes can represent connections such as domain-range pairs and OWL restrictions that may be modelled using multiple triples.
 SNIK Graph supports the following use cases:
 
-UC1 / UC4
-The visualization of the complete T-Box (UC1) / A-Box (UC4).
+\paragraph{UC1 / UC4 The visualization of the complete T-Box / A-Box.}
 The global view of the 4117 classes of SNIK, their connecting 12115 triples and the 73 instances is shown on startup in SNIK Graph in the main tab, however due to overplotting, this view is mostly used as as an entry point to the search or to execute the star operations (see section \enquote{Star}) that spawn a subgraph in another tab.
 
-UC2 / UC5
-The visualization of the information related to a specific class (UC2) / instance (UC5).
-The adjacent nodes of any specific resource (class or instance) can be visualized with the star operators (see section \enquote{Star}).
-A view of a specific resource with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser~\footnote{\url{https://lodview.it/}} with a modified color scheme according to the SNIK subontology color coding.
+\paragraph{UC2 / UC5 The visualization of the information related to a specific class / instance.}
+Adjacent nodes of any specific resource (class or instance) can be visualized with the star operators (see section \enquote{Star}).
+A view of a specific resource with details such as definition, chapter, alternative labels and textbook page numbers is presented using an installation of the LodView RDF browser\footnote{\url{https://lodview.it/}} with a modified color scheme according to the SNIK color coding.
 
-UC3
-The visualization of the information related to a specific property.
-Properties are not shown in SNIK Graph but can be browsed using the LodView installation.
+\paragraph{UC3 The visualization of the information related to a specific property.}
+Properties are not shown directly in SNIK Graph but can be accessed in the details view of a node that leads the user to our LodView installation.
 
-UC6
-The visualization of the instances belonging to a specific class.
-The instances in SNIK Graph are shown near their specific class(es). \todo{Konrad: stimmt das so? hier war ich mir sehr unsicher}
+\paragraph{UC6 The visualization of the instances belonging to a specific class.}
+SNIK Graph shows both classes and their instances as nodes including edges for the \aurl{rdf}{type} relation.
 
-UC7
-The visualization of the paths that link different instances.
+\paragraph{UC7 The visualization of the paths that link different instances.}
 Several path operations can be used in SNIK Graph to explore the connections between instances.
 
-UC8
-The exploration of the dataset.
+\paragraph{UC8 The exploration of the dataset}
 Besides the global view, SNIK Graph supports exploratory search and exploration of the knowledge graph.
-A fulltext search helps users to find their start ressource, path and expand operations leads them to an interesting exploration.
+A fulltext search helps users to find their start resource; path and neighbourhood operations leads them to discover the environment of that resource.
 
-UC13-15
-Filtering.
-SNIK Grah provides several filter options.
-Users can decide which sources (textbook) to use, what kinds of types depending on our meta model do display and can also filter along relations.
+\paragraph{UC13-15 Filtering.}
+%Classes, instances and properties of SNIK can be hidden based on type, such as Role, and knowledge source (SPARQL graph).
+Users can decide which sources (see \cref{tab:namespaces}) to use, select specific relations or hide subclasses of the main meta model types role, function or entity type.
 
-The specific use case of SNIK Graph is, that users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
-It also has to be a web application, to be platform-independent.
-For better availability and adoption around stakeholders (especially teachers and students) it also has to be free and open source.
-Our research along other tools does not provide a proper fitting solution.
-\todo{konrad: ich denke das reicht hierzu aus, es geht doch nur darum zu zeigen wieso wir nicht tool xyz nutzen sondern unser eigenes machen oder? und die Auflistung der erfüllten usecases passt mMn auch sehr gut dazu}
+%The specific use case of SNIK Graph is, that users should see the structure of the whole graph at once, but also be able to start at a certain resource and explore its neighbourhood incrementally.
+%It also has to be a web application, to be platform-independent.
+%For better availability and adoption around stakeholders (especially teachers and students) it also has to be free and open source.
+%Our research along other tools does not provide a proper fitting solution.
+%\todo{konrad: ich denke das reicht hierzu aus, es geht doch nur darum zu zeigen wieso wir nicht tool xyz nutzen sondern unser eigenes machen oder? und die Auflistung der erfüllten usecases passt mMn auch sehr gut dazu}
 %In the course of the SNIK project
 
 % booktabs not allowed for this conference AFAIK
@@ -221,21 +215,21 @@ Our research along other tools does not provide a proper fitting solution.
 \section*{Preliminaries}
 SNIK is created by manually extracting knowledge from sources such as textbooks.
 It describes abstract concepts of hospital information systems and not any one in particular\footnote{With the exception of the CIO interview modelled as \url{http://www.snik.eu/ontology/ciox}.}.
-Thus, SNIK is an ontology describing concepts classes, such as \aurl{ob}{Consultant}.
+Thus, SNIK is an ontology and models concepts as classes, such as \aurl{ob}{Consultant}.
 However, the large number of classes and the reliance on RDF/RDFS formalisms has many characteristics of a knowledge base describing instances instead of classes.
 This is a different approach than for example DBpedia, where many instances, such as \emph{Elephant}, actually represent abstract concepts with sets of individuals (classes).
 Because of this modelling choice, the sources of SNIK are represented by a different subontologies that follow a meta ontology, the SNIK meta model, see ~\cref{fig:metamodel}.
 Under the perspective of the meta model, the only parts of an abstract hospital information system that shall be described are roles (who), functions (does what) and entity types (which information is therefore needed).
 
 A major difficulty in understanding the domain of HIS management is the difference in perspective and nomenclature between the different textbooks, standards and other sources.
-Thus, we model each source separately and do not merge concepts pairs with the same meaning.
+Thus, we model each source separately and do not merge concept pairs with the same meaning.
 Those pairs are however connected by interlinks if they have a label in common and are verified manually, resulting in 713 interlinks. 
 To emphasize the difference in perspective, even if the name is an exact match, the interlinks are only typed as \aurl{skos}{match} and not as the more restrictive \aurl{skos}{exactMatch} or \aurl{owl}{equivalentClass}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{metamodel9s.pdf}
-    \caption{The Meta Model of the SNIK Ontology~\cite{snikposter}.}\label{fig:metamodel}
+    \caption{The Meta Model of the SNIK Ontology~\cite{snikposter}. SNIK contains 4118 classes, including 226 roles, 1085 functions and 2636 entity types as of 2021-02-21.}\label{fig:metamodel}
 \end{figure}
 
 \begin{table}[h]
@@ -258,27 +252,22 @@ ciox	&\url{http://www.snik.eu/ontology/ciox}		&CIO Interview		&cyan\\\hline
 \end{table}
 
 \subsection*{Design Goals and Requirements}
-SNIK Graph's main goal is to visualize knowledge extracted from text books to users that may not have any Semantic Web experience.
+Our main goal is to visualize knowledge extracted from text books to users that may not have any Semantic Web experience.
 The time and cognitive load of the users required to install, learn and operate the application should be as low as possible, so that they can focus on the data at hand and experience a benefit compared to only reading the textbook, such as when studying for an exam.
-As such, SNIK Graph is designed as a a web application, so that it is operating system agnostic and does not need to be installed. 
-
+A web application is easiest to set up for the user, as it is operating system agnostic and does not need to be installed.
 %\todo{Vorschlag von Michelle: Verwendung in der Lehre setzt intuitive/leicht erlernbare Benutzung des Graphen voraus um zu vermeiden wertvolle Vorlesungszeit an ein Tutorial zu verlieren --> Bekannet Tastaturshortcuts, Drag and Drop, übersichtliches }
 
-When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
-When visualizing ontologies, edges between class nodes need to represent domain-range pairs and OWL restrictions.
 
 
 
 \section*{Implementation and Setup}
-Following the design goals, SNIK Graph is implemented in JavaScript (EcmaScript 2015) using the graph visualization library Cytoscape.js~\cite{cytoscape}.
+As none of the investigated existing approaches support all our use cases and design goals and provide adequate performance on more than 4000 nodes, we implemented SNIK Graph as a web application using JavaScript (EcmaScript 2015) based on the graph visualization library Cytoscape.js~\cite{cytoscape}.
 SNIK Graph is freely available as open source software\footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
 As a client-side tool\footnotemark{}, SNIK Graph can be adapted for other knowledge bases and ontologies and published on any HTML web server by cloning the repository, installing the NPM dependencies and adapting the configuration file settings including the SPARQL endpoint URL.
 \footnotetext{Aside from a SPARQL endpoint.}%
 An installation containing SNIK is published at \url{https://www.snik.eu/graph}.
 
 \section*{Features}
-\subsection*{Filters}
-Classes, instances and properties of SNIK can be hidden based on type, such as Role, and knowledge source (SPARQL graph).
  
 
 \subsection*{Tabs and Containers}
@@ -320,6 +309,7 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
 %\end{figure}
 
 \subsection*{Role Use}
+\iffalse
 \todo{konrad an alle: was mache ich mit der sparql query? rausschmeissen, drin lassen oder umbauen? TP: drinlassen, aber direkt ans Bild hängen.. Sowas wie aus der Query folgt dieses Bild. Ich finde sowas sollte schon rein ins Paper}
 \begin{figure}[h]
 \begin{lstlisting}
@@ -339,6 +329,7 @@ SELECT DISTINCT ?inner ?middle ?outer ?outerx {
 \label{lst:roleuse}
 \end{figure}
 \vspace{-3pt}
+\fi
 A frequent question is, what a given role does and which information is needed for those functions represented by the entity types connected to those functions.
 This question is visually answered by the \enquote{role use} feature, which arranges roles, functions and entity types in concentric circles, see \Cref{fig:classuse}:
 
@@ -423,7 +414,7 @@ The \emph{circle star} also rearranges the nodes using the force-directed layout
 \Cref{fig:star} shows a mind map of strategic information management, created by an undirected star, which can be used by a teacher to prepare a lecture about the topic.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\linewidth]{strategic-im.pdf}
+    \includegraphics[width=0.9\linewidth]{strategic-im.pdf}
     \caption{Undirected \emph{Star} of \aurl{bb}{StrategicInformationManagement}.}
 	\label{fig:star}
 \end{figure}
@@ -449,33 +440,41 @@ A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with 
 \vspace{-3pt}
 
 \section*{Conclusions and Future Work}
+With SNIK Graph, we implement an adaptable open-source client-side graph-based Linked Data visualization that supports both A-Boxes and T-Boxes covering 11 of the 15 use cases presented in~\cite{linkeddatavisualization}.
+We publish an installation visualizing the SNIK ontology and use it for teaching and self-learning of HIS management.
+SNIK Graph is easy to setup and can be configured to visualize other knowledge bases and ontologies.  
+Our main focus on improvement is the performance, which is mostly adequate on more than 4000 nodes, but suffers in two key areas:
 % A problem is that related approaches are not available as open source ...
 % this hinders analysis and slows progress, as effort is not shared and ...
 %\section*{Evaluation}
 %SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
 
 %Different presentation forms are suitable for different use cases and data sets.
-\todo{conclusions}
 % RDF browsers are well suited for ...
 
 %\subsection*{Future Work}
-\subsection*{Performance}
+%\subsection*{Performance}
 %On graphs of several thousand nodes, 
-The performance of SNIK Graph suffers in two key areas:
 
 %(1) Performing a force directed 
 \subsection*{Force-Directed Layouts}
+Due to its client-side design, the initial\footnotemark{} single-threaded force-directed layout generation of the full graph takes around 15 seconds on an Intel i9-10900k and significantly longer on older machines.
+\footnotetext{For following uses, the layout is cached in the local storage of the browser.}%
 As CPUs with 6 to 16 cores become the norm, the speed penalty of single-threaded code becomes enormous.
 Thus, the single-thread paradigm of JavaScript seriously hinders performance of CPU-bound applications like SNIK Graph.
 While web workers\footnote{\url{https://html.spec.whatwg.org/multipage/workers.html\#workers}} offer multithreading for JavaScript applications, they posess separate memory and cause large overheads for serialization and deserialization and are thus not suited for short-lived tasks like calculating a single step of a force-directed layout for parts of a given graph.
 Thus, a light-weight parallellization option is needed.
 The WebAssembly \enquote{threads}-proposal\footnote{\url{https://github.com/WebAssembly/proposals/issues/14}} provides such a construct, however it is only at phase 2 \enquote{Proposed Spec Text Available}, which need to be followed by the implementation in browsers and the standardization phase.
-The main developer of the Cytoscape.js library showed interest in then rewriting a future version of the library in WebAssembly.
+The main developer of the Cytoscape.js library showed interest in then rewriting a future version in WebAssembly.
 
 \subsubsection*{Graph Rendering}
-Due to the low performance of rendering on an HTML canvas, the frame rate drops significantly below a fluent 60 frames per second (FPS).
-The frame rate is especially low on large resolutions such as 4k (3840x2160) and on browsers other than Google Chrome, where the frame rate drops to as low as 5 FPS on an Intel i7-9700 at 4k on Firefox 86.0b8 on Arch Linux.
-Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer for Cytoscape.js has the potential to dramatically increase render speed. 
+Due to the low performance of rendering on an HTML canvas, the frame rate can drop significantly below a fluent 60 frames per second (FPS).
+While Cytoscape.js buffers already rendered parts, this mechanism suffers when moving around at medium zoom levels.
+The frame rate is especially low on large resolutions such as 4k (3840x2160) and on browsers other than Google Chrome / Chromium, where the minimum frame rate drops to as low as 8 FPS on an Intel i9-10900k at 4k on Mozilla Firefox 86 and 36 FPS on Chromium 88 on Arch Linux.
+We attribute the large difference between Chrome / Chromium and Firefox to the different JavaScript engines.
+While SNIK Graph does not require perfectly smooth motion and wild movements are not a common usage pattern, stuttering is still frustrating to users especially on less performant CPUs and browsers other than Chrome and contrary to our goals of minimizing friction for users. 
+Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer for Cytoscape.js has the potential to dramatically increase render speed.
+High framerates would also allow the study of nausea-free virtual reality presentation for Linked Data visualization.
 
 % 4903 edges, 2643 nodes
 %\subsection*{Mobile Devices}
