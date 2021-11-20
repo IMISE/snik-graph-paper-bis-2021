@@ -1,14 +1,16 @@
-%===========[ PREAMBLE ]========================================================
-\documentclass[11pt]{article}
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage[a4paper, top=0.98in, bottom=0.79in, left=0.98in, right=0.98in]{geometry}
 \usepackage{graphicx}
+\usepackage{textcomp}
 \usepackage{tabularx}
-\usepackage{fancyhdr}
-\usepackage{setspace}
-\usepackage{titlesec}
-\usepackage{enumitem}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+%\usepackage{fancyhdr}
+%\usepackage{titlesec}
+%\usepackage{enumitem}
 \usepackage{todonotes}
 \usepackage{csquotes}
 \usepackage{listings}
@@ -24,72 +26,43 @@
 \daurl{ob}{http://www.snik.eu/ontology/bb/}
 \daurl{meta}{http://www.snik.eu/ontology/meta/}
 \graphicspath{{./img/}}
-\usepackage[backend=biber, style=ieee]{biblatex} %For bibliography management with biblatex
-\addbibresource{paper.bib}
-\addbibresource{snik.bib}
-\addbibresource{relatedwork.bib}
+%\addbibresource{paper.bib}
+%\addbibresource{snik.bib}
+%\addbibresource{relatedwork.bib}
 
-% ==========[ FONT ]============================================================
-%For the font of the document uncoment one of the following options.
-%If using pdflatex compiler the follwoing commands will provide an arial-like
-%font (helvetica)
-\usepackage{helvet}
-\renewcommand{\familydefault}{\sfdefault}
-%If using xelatex compiler the follwoing commands will provide arial font
-%\usepackage{fontspec}
-%\setmainfont{Arial}
-
-%===========[ FORMAT ]==========================================================
-%Please do not edit or remove these lines
-\pagenumbering{gobble}
-\setlength{\parskip}{6pt}
-\setlist[1]{topsep=0pt,itemsep=-5pt}
-\addto\captionsenglish{\renewcommand{\figurename}{Figure}}
-\addto\captionsenglish{\renewcommand{\tablename}{Table}}
-\titlespacing*{\section}{0pt}{10pt}{4pt}
-\titlespacing*{\subsection}{0pt}{0ex}{0pt}
-\titlespacing*{\subsubsection}{0pt}{0pt}{0pt}
-\titlespacing*{\paragraph}{0pt}{6pt}{6pt}
-\captionsetup{belowskip=0pt,skip=6pt,labelfont=bf}%justification=raggedright,singlelinecheck=false
-\makeatletter
-\renewcommand{\maketitle}{
-    \begin{flushleft}
-        \footnotesize{Placeholder Name of the conference}\\\medskip
-        \footnotesize{Placeholder Session title}\\\medskip
-        \footnotesize{https://doi.or/10........ DOI placeholder (WILL BE FILLED IN BY TIB Open Publishing)}\\\medskip
-        \footnotesize{\textcopyright\ Authors. This work is licensed under a \href{https://creativecommons.org/licenses/by/4.0/}{Creative Commons Attribution 4.0 International License}}\\\medskip
-        \footnotesize{Published: (WILL BE FILLED IN BY TIB Open Publishing)}\\
-    \end{flushleft}
-    \begin{center}
-        \LARGE\textbf{\contribtitle}\\\smallskip
-        \Large{\contribsubtitle}
-    \end{center}
-    \normalsize{\firstauthor, \secondauthor, and \thirdauthor}
-    \begin{center}
-        \textsuperscript{1}\footnotesize{\firstauthoruniv}\\\medskip
-        \textsuperscript{2}\footnotesize{\secondauthoruniv}\\\medskip
-        \textsuperscript{3}\footnotesize{\thirdauthoruniv}\\\medskip
-    \end{center}}
-\makeatother
-
-%===========[ TITLES ]==========================================================
-%Chnage to your own information
-%\newcommand{\contribtitle}{FAIR Knowledge Graphs for the Management of Health Information Systems}
-\newcommand{\contribtitle}{SNIK Graph}
-\newcommand{\contribsubtitle}{Visualizing Knowledge about Management of Hospital Information Systems}
-%\newcommand{\contribsubtitle}{Graph-Based Exploration of an Hospital Information Systems}
-\newcommand{\firstauthor}{Konrad Höffner\textsuperscript{1[https://orcid.org/0000-0001-7358-3217]}}
-\newcommand{\firstauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-\newcommand{\secondauthor}{Thomas Pause\textsuperscript{2[https://orcid.org/0000-0001-5832-4890]}}
-\newcommand{\secondauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-\newcommand{\thirdauthor}{Franziska Jahn\textsuperscript{3[https://orcid.org/0000-0002-7687-8544]}}%\todo{fj: orcid bitte anpassen}
-\newcommand{\thirdauthoruniv}{Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Germany}
-
-%===========[ CONTENT ]=========================================================
 \begin{document}
+\title{SNIK Graph---Visualizing Knowledge about Management of Hospital Information Systems}
+\thanks{This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1.}
+% SNIK Graph is presented in poster form at \cite{snikgraphposter}.
+\author{\IEEEauthorblockN{Konrad Höffner}
+\IEEEauthorblockA{\textit{Institute for Medical Informatics, Statistics and Epidemiology} \\
+\textit{Leipzig University}\\
+Leipzig, Germany \\
+\url{https://orcid.org/0000-0001-7358-3217}}
+\and
+\IEEEauthorblockN{Thomas Pause}
+\IEEEauthorblockA{\textit{Institute for Medical Informatics, Statistics and Epidemiology} \\
+\textit{Leipzig University}\\
+Leipzig, Germany \\
+\url{https://orcid.org/0000-0001-5832-4890}}
+\and
+\IEEEauthorblockN{Franziska Jahn}
+\IEEEauthorblockA{\textit{Institute for Medical Informatics, Statistics and Epidemiology} \\
+\textit{Leipzig University}\\
+Leipzig, Germany \\
+\url{https://orcid.org/0000-0002-7687-8544}}
+\and
+\and
+\IEEEauthorblockN{Alfred Winter}
+\IEEEauthorblockA{\textit{Institute for Medical Informatics, Statistics and Epidemiology} \\
+\textit{Leipzig University}\\
+Leipzig, Germany \\
+%alfred.winter@imise.uni-leipzig.de}
+\url{https://orcid.org/0000-0003-0179-954X}}
+}
 \maketitle
 
-\paragraph{Abstract.}% The abstract should summarize the contents of the paper in short terms, i.e. in up to 250 words.
+\begin{abstract}
 % ~ 150 words
 Medical and health informatics integrates knowledge of business information systems, computer science and medicine.
 As a comparatively young research discipline, it lacks a uniform terminology, especially for describing health information systems and their management.
@@ -99,9 +72,12 @@ We present SNIK Graph, a web-based client-side open-source Linked Data visualiza
 Due to the large amount of concepts and relationships, visualizing SNIK as a graph causes overplotting, which we solve using filters, searches and exploratory operations. 
 %Students of medical informatics need to internalize complex relations between large amounts of concepts of health information systems (HIS) and their management.
 %We present SNIK Graph, a graph-based linked data visualization web application that supports teaching textbook knowledge about HIS management.
-\paragraph{Keywords:} Linked open data visualization, health information systems, information management, 
+\end{abstract}
+\begin{IEEEkeywords}
+linked open data visualization,health information systems,information management
+\end{IEEEkeywords}
 
-\section*{Introduction}%
+\section{Introduction}%
 Medical and health informatics integrates knowledge of business information systems, computer science and medicine.
 As a comparatively young research discipline, it lacks a uniform terminology, especially for describing health information systems and their management.
 Several textbooks provide different perspectives of the discipline but the linear struture inherent in a book does not intuitively convey the highly connected nature of the concepts of the domain.
@@ -124,7 +100,7 @@ Users can also iteratively explore SNIK starting at a single class using neighbo
 %, which consists of the shortest path between a start node and an end node together with the end node’s neighbourhood, illustrate the context of a concept.
 
 
-%\subsection*{Motivation}%
+%\subsection{Motivation}%
 %They also allow students of medical informatics internalize complex relations between large amounts of concepts of health information systems and their management~\cite{visualizationoflargeontologies}.
 %\cite{snikgraphposter}
 %
@@ -146,8 +122,9 @@ Users can also iteratively explore SNIK starting at a single class using neighbo
 
 % version 3.18.0
 \label{sec:relatedwork}
-\section*{Related Work and Use Cases}
-\citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} describe different techniques and tools for Linked Data visualization, including graph-based visualization.
+\section{Related Work and Use Cases}
+%\citeauthor{linkeddatavisualization} \cite{linkeddatavisualization} describe different techniques and tools for Linked Data visualization, including graph-based visualization.
+Po et al.~\cite{linkeddatavisualization} describe different techniques and tools for Linked Data visualization, including graph-based visualization.
 They identify 15 use cases and categorize them as related to T-Boxes, A-Boxes and both.
 When showing instances, each RDF triple maps to an edge between two nodes representing its subject and object.
 When visualizing ontologies, edges between class nodes can represent connections such as domain-range pairs and OWL restrictions that may be modelled using multiple triples.
@@ -211,7 +188,7 @@ Users can decide which sources (see \cref{tab:namespaces}) to use, select specif
 % demo link given in paper at http://www.hyperbody.nl/demo/osmosys only shows a video, author is asked for demo, repo, free and open source via email by KH
 % based on sigma.js
 
-\section*{Preliminaries}
+\section{Preliminaries}
 SNIK is created by manually extracting knowledge from sources such as textbooks.
 It describes abstract concepts of hospital information systems and not any one in particular\footnote{With the exception of the CIO interview modelled as \url{http://www.snik.eu/ontology/ciox}.}.
 Thus, SNIK is an ontology and models concepts as classes, such as \aurl{ob}{Consultant}.
@@ -250,7 +227,7 @@ ciox	&\url{http://www.snik.eu/ontology/ciox}		&CIO Interview		&cyan\\\hline
 \end{tabularx}
 \end{table}
 
-\subsection*{Design Goals and Requirements}
+\subsection{Design Goals and Requirements}
 Our main goal is to visualize knowledge extracted from text books to users that may not have any Semantic Web experience.
 The time and cognitive load of the users required to install, learn and operate the application should be as low as possible, so that they can focus on the data at hand and experience a benefit compared to only reading the textbook, such as when studying for an exam.
 A web application is easiest to set up for the user, as it is operating system agnostic and does not need to be installed.
@@ -259,17 +236,17 @@ A web application is easiest to set up for the user, as it is operating system a
 
 
 
-\section*{Implementation and Setup}
+\section{Implementation and Setup}
 As none of the investigated existing approaches support all our use cases and design goals and provide adequate performance on more than 4000 nodes, we implemented SNIK Graph as a web application using JavaScript (EcmaScript 2015) based on the graph visualization library Cytoscape.js~\cite{cytoscape}.
 SNIK Graph is freely available as open source software\footnote{\url{https://github.com/imise/snik-cytoscape.js}}.
 As a client-side tool\footnotemark{}, SNIK Graph can be adapted for other knowledge bases and ontologies and published on any HTML web server by cloning the repository, installing the NPM dependencies and adapting the configuration file settings including the SPARQL endpoint URL.
 \footnotetext{Aside from a SPARQL endpoint.}%
 An installation containing SNIK is published at \url{https://www.snik.eu/graph}.
 
-\section*{Features}
+\section{Features}
  
 
-\subsection*{Tabs and Containers}
+\subsection{Tabs and Containers}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{tabs.png}
@@ -288,7 +265,7 @@ The content and of the all containers can be saved and loaded as a session to co
 %This feature allows better workflows in preparation and presentation of teaching scenarios.
 %We use JSON formatted files for export and import.
 
-\subsection*{Compound Layout}
+\subsection{Compound Layout}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{combine.pdf}
@@ -307,7 +284,7 @@ To alleviate this, SNIK offers multiple exploration methods described in the fol
 %    \caption{Excerpt of SNIK using the default force directed layout.}\label{fig:much}
 %\end{figure}
 
-\subsection*{Role Use}
+\subsection{Role Use}
 \iffalse
 \todo{konrad an alle: was mache ich mit der sparql query? rausschmeissen, drin lassen oder umbauen? TP: drinlassen, aber direkt ans Bild hängen.. Sowas wie aus der Query folgt dieses Bild. Ich finde sowas sollte schon rein ins Paper}
 \begin{figure}[h]
@@ -344,11 +321,11 @@ This question is visually answered by the \enquote{role use} feature, which arra
     \caption{\emph{Role Use} of \aurl{bb}{ProjectManager}. Outermost layer ommitted due to space limitiations.}\label{fig:classuse}
 \end{figure}
 
-%\section*{Approach}
+%\section{Approach}
 %Due to its large size, visualizing all of SNIK at once  overplotting.
 %At the core of SNIK Graph is incremental exploration, which starts at one or more nodes and gradually expands them to related ones.
 
-\subsection*{Search}
+\subsection{Search}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{search.pdf}
@@ -371,7 +348,7 @@ Fuzzy matching is enabled with a threshold of \num{0.25}.
 The resource \aurl{bb}{ChiefInformationOfficer} can thus be found by entering either \enquote{CIO} (alternative label), \enquote{vice president} (part of the definition) or \enquote{Leiter des Rechenzentrums} (German alternative label of \aurl{ob}{ChiefInformationOfficer}).
 Search results are then selected in the graph, see~\cref{fig:search}, which allows further exploration by chaining the path and neighbourhood operations described in following.
 
-\subsection*{Shortest Paths}
+\subsection{Shortest Paths}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\linewidth]{path.png}
@@ -405,9 +382,9 @@ An general approach to solve the problem of informative shortest paths is \emph{
 Future work includes adopting this approach to SNIK Graph and evaluating it with its users.
 Another approach is to show all short paths under a given length and let the user remove unwanted ones manually, as employed by \emph{Relfinder}~\cite{relfinder}.
 
-\subsection*{Neighbourhood Operations}
+\subsection{Neighbourhood Operations}
 Exploration using neighbours, that is the successive uncovering of nodes adjacent to a starting node given by a user, is a common feature of tools such as \cite{lodlive} and \cite{vizlod}.%
-\subsection*{Star}
+\subsection{Star}
 The directed and undirected star operations show nodes connected to selected nodes via all paths that contain at most one property other than \aurl{skos}{closeMatch}.
 The \emph{circle star} also rearranges the nodes using the force-directed layout locally on the currently visible subgraph.
 \Cref{fig:star} shows a mind map of strategic information management, created by an undirected star, which can be used by a teacher to prepare a lecture about the topic.
@@ -425,8 +402,8 @@ Grouping both concepts with the help of the star function the user detects that 
 Whereas the text book deals with the management of single projects, in the CIO's world \enquote{project management} means managing multiple projects, as shown in the lower right container in \cref{fig:tabs}.
 As all neighbourhood and path operations automatically select all resulting nodes, repeated application of a star without clearing the selection results in an incremental uncovering of the whole connected graph around the starting node.
 
-\subsection*{Mixed Operations}
-\subsubsection*{Spiderworm}
+\subsection{Mixed Operations}
+\subsubsection{Spiderworm}
 A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with a \emph{star} of \emph{B}.
 \Cref{fig:spiderworm} shows how we use a spiderworm to teach a student how the new concept \enquote{quality of data} is connected the the already introduced concept \enquote{patient identification number.}
 
@@ -438,25 +415,25 @@ A \emph{spiderworm} is a path from node \emph{A} to node \emph{B} combined with 
 \end{figure}
 \vspace{-3pt}
 
-\section*{Conclusions and Future Work}
+\section{Conclusions and Future Work}
 With SNIK Graph, we implement an adaptable open-source client-side graph-based Linked Data visualization that supports both A-Boxes and T-Boxes covering 11 of the 15 use cases presented in~\cite{linkeddatavisualization}.
 We publish an installation visualizing the SNIK ontology and use it for teaching and self-learning of HIS management.
 SNIK Graph is easy to setup and can be configured to visualize other knowledge bases and ontologies.  
 Our main focus on improvement is the performance, which is mostly adequate on more than 4000 nodes, but suffers in two key areas:
 % A problem is that related approaches are not available as open source ...
 % this hinders analysis and slows progress, as effort is not shared and ...
-%\section*{Evaluation}
+%\section{Evaluation}
 %SNIK Graph is evaluated on the SNIK dataset, which contains textbook knowledge about the management of hospital information systems.
 
 %Different presentation forms are suitable for different use cases and data sets.
 % RDF browsers are well suited for ...
 
-%\subsection*{Future Work}
-%\subsection*{Performance}
+%\subsection{Future Work}
+%\subsection{Performance}
 %On graphs of several thousand nodes, 
 
 %(1) Performing a force directed 
-\subsection*{Force-Directed Layouts}
+\subsection{Force-Directed Layouts}
 Due to its client-side design, the initial\footnotemark{} single-threaded force-directed layout generation of the full graph takes around 15 seconds on an Intel i9-10900k and significantly longer on older machines.
 \footnotetext{For following uses, the layout is cached in the local storage of the browser.}%
 As CPUs with 6 to 16 cores become the norm, the speed penalty of single-threaded code becomes enormous.
@@ -466,7 +443,7 @@ Thus, a light-weight parallellization option is needed.
 The WebAssembly \enquote{threads}-proposal\footnote{\url{https://github.com/WebAssembly/proposals/issues/14}} provides such a construct, however it is only at phase 2 \enquote{Proposed Spec Text Available}, which need to be followed by the implementation in browsers and the standardization phase.
 The main developer of the Cytoscape.js library showed interest in then rewriting a future version in WebAssembly.
 
-\subsubsection*{Graph Rendering}
+\subsubsection{Graph Rendering}
 Due to the low performance of rendering on an HTML canvas, the frame rate can drop significantly below a fluent 60 frames per second (FPS).
 While Cytoscape.js buffers already rendered parts, this mechanism suffers when moving around at medium zoom levels.
 The frame rate is especially low on large resolutions such as 4k (3840x2160) and on browsers other than Google Chrome / Chromium, where the minimum frame rate drops to as low as 8 FPS on an Intel i9-10900k at 4k on Mozilla Firefox 86 and 36 FPS on Chromium 88 on Arch Linux.
@@ -476,7 +453,7 @@ Due to the enormous power of modern GPUs, implementing an OpenGL-based renderer 
 High framerates would also allow the study of nausea-free virtual reality presentation for Linked Data visualization.
 
 % 4903 edges, 2643 nodes
-%\subsection*{Mobile Devices}
+%\subsection{Mobile Devices}
 
 %- We also tried to automatically find the most interesting path but this was not successfull as it is subjective and the depends on the goal of the user.
 %(link to AB bachelor thesis if allowed)
@@ -495,12 +472,13 @@ High framerates would also allow the study of nausea-free virtual reality presen
 %\end{equation}
 
 
-\paragraph{Acknowledgements}
-This work is supported by the DFG (German Research Foundation) under the Project SNIK, Grant no. 1605/7-1 and 1387/8-1.% SNIK Graph is presented in poster form at \cite{snikgraphposter}. % KH2FJ: is that needed? I think not.
+%\paragraph{Acknowledgements}
 
-\section*{References}
-\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
+%\section{References}
+%\printbibliography[heading=none] %Uncomment if using biblatex. This command generates the refrences section automatically.
 %\bibliographystyle{plain}
+\bibliographystyle{IEEEtran}
+\bibliography{paper,snik,relatedwork}
 %\bibliography{paper,snik,relatedwork}
 
 \end{document}
